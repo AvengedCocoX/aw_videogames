@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>PARSE4U Analytics</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/materialize.css"/>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript" ></script>
+
+    </h:head>
+
+    <h:body>
+        <ui:insert name="top">
+            <h:form>
+                <div class="navbar-fixed">
+                    <!-- Dropdown Structure -->
+                    <ul id="dropdown1" class="dropdown-content">
+                        <li>
+                            <h:form id="form01" rendered="#{request.isUserInRole('registrado') or request.isUserInRole('administrador') or request.isUserInRole('community')}">
+                                <a href="#!"><i class="material-icons left">perm_identity</i>#{sessionBean.nombre}</a>
+                            </h:form>
+                        </li>
+                        <li class="divider"></li>
+                        <li><h:link value="Mi cuenta" outcome="/miCuenta.xhtml" ><i class="material-icons left">assignment</i></h:link></li>
+                        <li><h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('registrado') or request.isUserInRole('administrador') or request.isUserInRole('community')}" style="color: #ffffff"><i class="material-icons left">power_settings_new</i></h:commandLink></li>
+                    </ul>
+                    <nav>
+                        <div class="nav-wrapper blue darken-1">
+                            <h:link value="Parse4U" class="brand-logo" style="padding-left: 10px" outcome="index" />
+                            <ul class="right hide-on-med-and-down">
+                                <li><h:link value="Registrarse" outcome="registro.xhtml" rendered="#{not request.isUserInRole('registrado') and not request.isUserInRole('administrador') and not request.isUserInRole('community')}"><i class="material-icons left">assignment_ind</i></h:link></li>
+                                <li><h:link value="Iniciar sesión" outcome="login.xhtml" rendered="#{not request.isUserInRole('registrado') and not request.isUserInRole('administrador') and not request.isUserInRole('community')}"><i class="material-icons left">perm_identity</i></h:link></li>
+                                <li>
+                                    <h:outputLink rendered="#{request.isUserInRole('registrado') or request.isUserInRole('administrador') or request.isUserInRole('community')}">
+                                        <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">verified_user</i><i class="material-icons right">arrow_drop_down</i>#{sessionBean.nombre}</a>
+                                    </h:outputLink>
+                                </li>
+                            </ul>
+                            <a class="button-collapse" href="#" data-activates="nav-mobile">
+                                <i class="material-icons large">reorder</i>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </h:form>
+        </ui:insert>
+
+        <ui:insert name="left">
+            <ul id="nav-mobile" class="side-nav fixed" style="width: 240px; margin-top: 64px; margin-bottom: 20px">
+
+                <img src="http://localhost/~Alvaro/images/parse4u_logo.png" class="nav-wrapper" width="160px" align="middle" style="margin-left: 35px; margin-top: 25px; margin-bottom: 25px;" />
+
+                <li>
+                    <h:form>
+                        <p:panelMenu>
+                            <p:submenu label="#{sessionBean.nombre}" rendered="#{request.isUserInRole('registrado') or request.isUserInRole('community') or request.isUserInRole('administrador')}">
+                                <p:menuitem value="Mi cuenta" icon="fa fa-user" outcome="/miCuenta.xhtml"/>
+                                <p:menuitem value="Cerrar sesión" icon="fa fa-power-off" actionListener="#{sessionBean.logout()}"/>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </li>
+                <li>
+                    <h:form>
+                        <p:panelMenu>
+                            <p:submenu label="Usuario no registrado" >
+                                <p:menuitem value="Iniciar sesión" rendered="#{not request.isUserInRole('registrado') and not request.isUserInRole('administrador') and not request.isUserInRole('community')}" outcome="login" icon="fa fa-user" />
+                                <p:menuitem value="Registrarse" rendered="#{not request.isUserInRole('registrado') and not request.isUserInRole('administrador') and not request.isUserInRole('community')}" icon="fa fa-user-plus" outcome="registro" />
+                                <p:menuitem value="Sugerir seguimiento" rendered="#{not request.isUserInRole('registrado') and not request.isUserInRole('administrador') and not request.isUserInRole('community')}" url="/faces/sugerirEvento.xhtml" icon="fa fa-plus-square-o" />
+                                <p:menuitem value="Seguimientos públicos" url="/faces/eventos.xhtml" icon="fa fa-list-ul" />
+                                <p:menuitem value="Sugerir seguimiento" rendered="#{request.isUserInRole('administrador')}" icon="fa fa-comment" url="/faces/administrador/sugerirEvento.xhtml"/>
+                                <p:menuitem value="Sugerir seguimiento" rendered="#{request.isUserInRole('community')}" icon="fa fa-comment" url="/faces/community/sugerirEvento.xhtml"/>                                
+                                <p:menuitem value="Sugerir seguimiento" rendered="#{request.isUserInRole('registrado')}" icon="fa fa-comment" url="/faces/registrado/sugerirEvento.xhtml"/>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </li>
+                <li>
+                    <h:form>
+                        <p:panelMenu>
+                            <p:submenu label="Registrado" rendered="#{request.isUserInRole('registrado') or request.isUserInRole('community') or request.isUserInRole('administrador')}">
+                                <p:menuitem value="Mis seguimientos" rendered="#{request.isUserInRole('registrado')}" icon="fa fa-list-ul" url="/faces/registrado/misSeguimientos.xhtml"/>
+                                <p:menuitem value="Mis seguimientos" rendered="#{request.isUserInRole('administrador')}" icon="fa fa-list-ul" url="/faces/administrador/misSeguimientos.xhtml"/>
+                                <p:menuitem value="Mis seguimientos" rendered="#{request.isUserInRole('community')}" icon="fa fa-list-ul" url="/faces/community/misSeguimientos.xhtml"/>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </li>
+                <li>
+                    <h:form>
+                        <p:panelMenu>
+                            <p:submenu label="C.M." rendered="#{request.isUserInRole('administrador') or request.isUserInRole('community')}">
+                                <p:menuitem value="Validar seguimientos" rendered="#{request.isUserInRole('community')}" icon="fa fa-check" url="/faces/community/listaEventosPendiente.xhtml"/>
+                                <p:menuitem value="Validar seguimientos" rendered="#{request.isUserInRole('administrador')}" icon="fa fa-check" url="/faces/administrador/listaEventosPendiente.xhtml"/>
+                                <p:menuitem value="Lista de seguimientos" rendered="#{request.isUserInRole('community')}" icon="fa fa-list-ul" url="/faces/community/listaEventos.xhtml"/>
+                                <p:menuitem value="Lista de seguimientos" rendered="#{request.isUserInRole('administrador')}" icon="fa fa-list-ul" url="/faces/administrador/listaEventos.xhtml"/>
+                                <p:submenu label="Seguimientos" icon="fa fa-tachometer">
+                                    <p:menuitem value="Confirmados" rendered="#{request.isUserInRole('community')}" icon="fa fa-thumbs-o-up" url="/faces/community/listaEventosConfirmado.xhtml"/>
+                                    <p:menuitem value="Confirmados" rendered="#{request.isUserInRole('administrador')}" icon="fa fa-thumbs-o-up" url="/faces/administrador/listaEventosConfirmado.xhtml"/>
+                                    <p:menuitem value="Cancelados" rendered="#{request.isUserInRole('community')}" icon="fa fa-trash-o" url="/faces/community/listaEventosCancelado.xhtml"/>
+                                    <p:menuitem value="Cancelados" rendered="#{request.isUserInRole('administrador')}" icon="fa fa-trash-o" url="/faces/administrador/listaEventosCancelado.xhtml"/>     
+                                </p:submenu>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </li>
+                <li>
+                    <h:form>
+                        <p:panelMenu>
+                            <p:submenu label="Administrador" rendered="#{request.isUserInRole('administrador')}">
+                                <p:submenu label="Usuarios" icon="fa fa-group">
+                                    <p:menuitem value="Registrar usuarios" icon="fa fa-user-plus" url="/faces/administrador/registrarUsuario.xhtml"/>
+                                    <p:menuitem value="Administrar usuarios" icon="fa fa-pencil" url="/faces/administrador/listaUsuarios.xhtml"/>
+                                </p:submenu>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </li>
+            </ul>
+        </ui:insert>
+
+
+        <div class="container">
+            <div class="section" >
+                <ui:insert name="content">
+
+                </ui:insert>
+            </div>
+        </div>
+
+        <ui:insert name="bottom">
+            <footer class="page-footer blue darken-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col l6 s12">
+                            <h5 class="white-text">PARSE4U</h5>
+                            <p class="grey-text text-lighten-4">Platform for Analytics and Research of Social Events</p>
+                        </div>
+                        <div class="col l4 offset-l2 s12">
+                            <h5 class="white-text">Links</h5>
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="#!">Herramienta de análisis de datos en relación al seguimiento de palabras clave, #hashtags y/o usuarios</a></li>
+                                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <div class="container">
+                        Álvaro J. Monedero Carreras
+                    </div>
+                </div>
+            </footer>
+        </ui:insert>
+
+
+
+        <!-- JavaScript -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <h:outputScript library="js" name="materialize.min.js" />
+        <h:outputScript library="js" name="xepOnline.jqPlugin.js" />
+
+        <script>
+            jQuery(document).ready(function ()
+            {
+                $('.button-collapse').sideNav();
+                $(".dropdown-button").dropdown();
+            });
+        </script>
+
+    </h:body>
+
+</html>
