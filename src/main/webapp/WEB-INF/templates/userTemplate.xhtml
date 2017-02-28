@@ -30,9 +30,9 @@
                             </h:form>
                         </li>
                         <li class="divider"></li>
-                        <li><h:link value="Configuración" style="width: 200'px"><i class="material-icons left">assignment</i></h:link></li>
+                        <li><h:link value="Configuración" style="width: 200'px"></h:link></li>
                         <li>
-                            <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}"><i class="material-icons left">power_settings_new</i></h:commandLink>
+                            <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}"></h:commandLink>
                         </li>
 
                     </ul>
