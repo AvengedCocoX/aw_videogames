@@ -6,11 +6,11 @@
         <title>Admin Home Page</title>
     </h:head>
     <h:body style="background-color: hotpink;">
-        <h3>Welcome to the Admin Home Page</h3>
+        <h3>Welcome to the Admin Home Page #{sessionBean.nombre}</h3>
         <p><h:link outcome="/index" value="To Home Page" /></p>
         <p>
             <h:form>
-                <h:commandLink action="#{logoutBean.logout}" value="Logout" />
+                <h:commandLink action="#{sessionBean.logout()}" value="Logout" />
             </h:form>
         </p>
     </h:body>

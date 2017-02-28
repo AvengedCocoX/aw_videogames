@@ -9,45 +9,35 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Index</title>
             </f:facet>
         </h:head>
 
         <h:body>
+            <!--Import jQuery before materialize.js-->
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script>
+            <ui:composition template="./WEB-INF/templates/userTemplate.xhtml">
 
-            <p:layout fullPage="true">
+                <ui:define name="content">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                </p:layoutUnit>
+                    <h:form>
 
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
-                </p:layoutUnit>
+                        <div style="height: 800px">
+                            <h:link outcome="registrarUsuario.xhtml" value="Registrarse" />
+                            
+                            <h:link outcome="login.xhtml" value="Iniciar sesión" />
+                        </div>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Admin" url="/faces/admin/index.xhtml" />
-                            <p:menuitem value="User" url="/faces/user/index.xhtml" />
-                            <p:menuitem value="Login" url="/faces/login.xhtml" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                    </h:form>
 
-                        </p:submenu>
+                </ui:define>
 
-                    </p:menu>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="center">
-                    <p><h:link outcome="/faces/admin/index" value="To the admin section" /></p>
-                    <p><h:link outcome="/faces/user/index" value="To the user section" /></p>
-                    
-                </p:layoutUnit>
-
-            </p:layout>
+            </ui:composition>
 
         </h:body>
 
     </f:view>
+
 </html>
 

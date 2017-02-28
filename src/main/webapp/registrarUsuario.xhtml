@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Registrar usuario</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <!--Import jQuery before materialize.js-->
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script>
+            <ui:composition template="./WEB-INF/templates/userTemplate.xhtml">
+
+                <ui:define name="content">
+
+                    <h:form style="width: 30%">
+                        <p:messages id="mensaje" showSummary="true" showDetail="true" />
+                        <p:growl id="mensajegrowl" showSummary="false" showDetail="true" />
+
+
+                        <p:outputLabel for="txtName" value="Nombre" />
+                        <p:inputText id="txtName" value="#{registrarUsuarioBean.user.name}" required="true"/>
+                        <p:message for="txtName" />
+
+                        <p:outputLabel for="txtUsername" value="Nombre de usuario" />
+                        <p:inputText id="txtUsername" value="#{registrarUsuarioBean.user.username}" required="true"/>
+                        <p:message for="txtUsername" />
+
+                        <p:outputLabel for="pass1" id="txtPassword" value="Contraseña" />
+                        <p:password id="pass1" value="#{registrarUsuarioBean.user.password}"
+                                    validatorMessage="Las claves no coinciden"
+                                    match="pass2" feedback="true" required="true"/>
+                        <p:message for="pass1" /> 
+
+                        <p:outputLabel for="pass2" value="Repetir contraseña"/>
+                        <p:password id="pass2" required="true"/>
+                        <p:message for="pass2" /> 
+
+                        <div style="visibility: hidden">#{registrarUsuarioBean.group.groupname="user"}</div>
+
+                        <a><p:commandButton value="Registrar" icon="fa fa-user" update="mensajegrowl" actionListener="#{registrarUsuarioBean.registrar()}" /></a>
+                        <a><p:commandButton value="Limpiar" icon="fa fa-magic" type="reset" /></a>
+
+                    </h:form>
+
+                </ui:define>
+
+            </ui:composition>
+
+        </h:body>
+
+    </f:view>
+
+</html>

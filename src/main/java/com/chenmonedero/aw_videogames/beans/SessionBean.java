@@ -12,10 +12,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-@Named("sessionBean")
+@Named
 @SessionScoped
-public class SessionBean implements Serializable
-{
+public class SessionBean implements Serializable{
 
     private String nombre;
 
