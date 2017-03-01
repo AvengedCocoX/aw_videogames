@@ -1,64 +1,67 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Registrar usuario</title>
-            </f:facet>
-        </h:head>
-
-        <h:body>
-            <!--Import jQuery before materialize.js-->
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-            <script type="text/javascript" src="js/materialize.min.js"></script>
-            <ui:composition template="./WEB-INF/templates/userTemplate.xhtml">
-
-                <ui:define name="content">
-
-                    <h:form style="width: 30%">
-
-                        <div style="margin-top: 6%; margin-bottom: 6%">
-                            <p:messages id="mensaje" showSummary="true" showDetail="true" />
-                            <p:growl id="mensajegrowl" showSummary="false" showDetail="true" />
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <h:outputStylesheet name="./css/materialize.css"/>
+        <title>Registrar usuario</title>
 
 
-                            <p:outputLabel for="txtName" value="Nombre" />
-                            <p:inputText id="txtName" value="#{registrarUsuarioBean.user.name}" required="true"/>
-                            <p:message for="txtName" />
+    </h:head>
 
-                            <p:outputLabel for="txtUsername" value="Nombre de usuario" />
-                            <p:inputText id="txtUsername" value="#{registrarUsuarioBean.user.username}" required="true"/>
-                            <p:message for="txtUsername" />
+    <h:body>
+        <ui:composition template="./WEB-INF/templates/userTemplate.xhtml">
 
-                            <p:outputLabel for="pass1" id="txtPassword" value="Contraseña" />
-                            <p:password id="pass1" value="#{registrarUsuarioBean.user.password}"
-                                        validatorMessage="Las claves no coinciden"
-                                        match="pass2" feedback="true" required="true"/>
-                            <p:message for="pass1" /> 
+            <ui:define name="content">
 
-                            <p:outputLabel for="pass2" value="Repetir contraseña"/>
-                            <p:password id="pass2" required="true"/>
-                            <p:message for="pass2" /> 
+                <h:form id="regForm">
 
+                    <p:messages id="mensaje" showSummary="true" showDetail="true" />
+                    <p:growl id="mensajegrowl" showSummary="false" showDetail="true" />
+
+                    <div style="margin-top: 10%; margin-bottom: 6%; margin-left: 25%">
+                        <div class="card horizontal" style="width: 60%">
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <div class="input-field col s6">
+                                        <p:inputText id="name" value="#{registrarUsuarioBean.user.name}" required="true"/>
+                                        <label for="name">Nombre</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p:inputText id="username" value="#{registrarUsuarioBean.user.username}" required="true"/>
+                                        <label for="username">Nombre de usuario</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p:password id="password" value="#{registrarUsuarioBean.user.password}" validatorMessage="Las claves no coinciden" match="confirm_password" feedback="true" required="true"/>
+                                        <label for="password">Contraseña</label>
+                                        <p:message for="confirm_password" /> 
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p:password id="confirm_password" required="true"/>
+                                        <label for="confirm_password">Confirmar contraseña</label>
+                                        <p:message for="confirm_password" /> 
+                                    </div>
+                                </div>
+                                
+                                <div class="card-action">
+                                    <p:commandButton value="Registrarse" icon="fa fa-user" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}"></p:commandButton>
+                                    <p:commandButton value="Limpiar" icon="fa fa-magic" type="reset" style="float: right"/>
+                                </div>
+                            </div>
                             <div style="visibility: hidden">#{registrarUsuarioBean.group.groupname="user"}</div>
-
-                            <a><p:commandButton value="Registrar" icon="fa fa-user" update="mensajegrowl" actionListener="#{registrarUsuarioBean.registrar()}" /></a>
-                            <a><p:commandButton value="Limpiar" icon="fa fa-magic" type="reset" /></a>
                         </div>
-                    </h:form>
+                    </div>
+                </h:form>
 
-                </ui:define>
+            </ui:define>
 
-            </ui:composition>
+        </ui:composition>
 
-        </h:body>
 
-    </f:view>
-
+    </h:body>
 </html>
