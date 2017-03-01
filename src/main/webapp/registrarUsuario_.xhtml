@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <h:outputStylesheet name="./css/materialize.css"/>
 
-        <title>Facelets Template</title>
+        <title>Registrar usuario</title>
 
 
     </h:head>
@@ -20,23 +20,33 @@
 
             <ui:define name="content">
 
-                <form method="POST" action="j_security_check">
 
+
+                <form class="pure-form">
                     <div style="margin-top: 10%; margin-bottom: 6%; margin-left: 25%">
                         <div class="card horizontal" style="width: 60%">
                             <div class="card-stacked">
                                 <div class="card-content">
                                     <div class="input-field col s6">
-                                        <input id="username" type="text" name="j_username" />
+                                        <input id="name" type="text" />
+                                        <label for="name">Nombre</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="username" type="text" />
                                         <label for="username">Nombre de usuario</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="password" type="password" name="j_password" />
+                                        <input id="password" type="password" />
                                         <label for="password">Contraseña</label>
                                     </div>
+                                    <div class="input-field col s6">
+                                        <input id="confirm_password" type="password" />
+                                        <label for="confirm_password">Confirmar contraseña</label>
+                                    </div>
                                 </div>
+                                <div style="visibility: hidden"></div>
                                 <div class="card-action">
-                                    <button class="btn waves-effect waves-light" type="submit" value="Login">Iniciar sesión
+                                    <button class="btn waves-effect waves-light" type="submit">Registrarse
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
@@ -45,8 +55,26 @@
                     </div>
                 </form>
 
+                <script>
+                    var password = document.getElementById("password")
+                            , confirm_password = document.getElementById("confirm_password");
+
+                    function validatePassword() {
+                        if (password.value !== confirm_password.value) {
+                            confirm_password.setCustomValidity("Passwords Don't Match");
+                        } else {
+                            confirm_password.setCustomValidity('');
+                        }
+                    }
+
+                    password.onchange = validatePassword;
+                    confirm_password.onkeyup = validatePassword;
+                </script>
+
             </ui:define>
 
         </ui:composition>
+
+
     </h:body>
 </html>

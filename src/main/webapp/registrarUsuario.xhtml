@@ -22,33 +22,35 @@
                 <ui:define name="content">
 
                     <h:form style="width: 30%">
-                        <p:messages id="mensaje" showSummary="true" showDetail="true" />
-                        <p:growl id="mensajegrowl" showSummary="false" showDetail="true" />
+
+                        <div style="margin-top: 6%; margin-bottom: 6%">
+                            <p:messages id="mensaje" showSummary="true" showDetail="true" />
+                            <p:growl id="mensajegrowl" showSummary="false" showDetail="true" />
 
 
-                        <p:outputLabel for="txtName" value="Nombre" />
-                        <p:inputText id="txtName" value="#{registrarUsuarioBean.user.name}" required="true"/>
-                        <p:message for="txtName" />
+                            <p:outputLabel for="txtName" value="Nombre" />
+                            <p:inputText id="txtName" value="#{registrarUsuarioBean.user.name}" required="true"/>
+                            <p:message for="txtName" />
 
-                        <p:outputLabel for="txtUsername" value="Nombre de usuario" />
-                        <p:inputText id="txtUsername" value="#{registrarUsuarioBean.user.username}" required="true"/>
-                        <p:message for="txtUsername" />
+                            <p:outputLabel for="txtUsername" value="Nombre de usuario" />
+                            <p:inputText id="txtUsername" value="#{registrarUsuarioBean.user.username}" required="true"/>
+                            <p:message for="txtUsername" />
 
-                        <p:outputLabel for="pass1" id="txtPassword" value="Contraseña" />
-                        <p:password id="pass1" value="#{registrarUsuarioBean.user.password}"
-                                    validatorMessage="Las claves no coinciden"
-                                    match="pass2" feedback="true" required="true"/>
-                        <p:message for="pass1" /> 
+                            <p:outputLabel for="pass1" id="txtPassword" value="Contraseña" />
+                            <p:password id="pass1" value="#{registrarUsuarioBean.user.password}"
+                                        validatorMessage="Las claves no coinciden"
+                                        match="pass2" feedback="true" required="true"/>
+                            <p:message for="pass1" /> 
 
-                        <p:outputLabel for="pass2" value="Repetir contraseña"/>
-                        <p:password id="pass2" required="true"/>
-                        <p:message for="pass2" /> 
+                            <p:outputLabel for="pass2" value="Repetir contraseña"/>
+                            <p:password id="pass2" required="true"/>
+                            <p:message for="pass2" /> 
 
-                        <div style="visibility: hidden">#{registrarUsuarioBean.group.groupname="user"}</div>
+                            <div style="visibility: hidden">#{registrarUsuarioBean.group.groupname="user"}</div>
 
-                        <a><p:commandButton value="Registrar" icon="fa fa-user" update="mensajegrowl" actionListener="#{registrarUsuarioBean.registrar()}" /></a>
-                        <a><p:commandButton value="Limpiar" icon="fa fa-magic" type="reset" /></a>
-
+                            <a><p:commandButton value="Registrar" icon="fa fa-user" update="mensajegrowl" actionListener="#{registrarUsuarioBean.registrar()}" /></a>
+                            <a><p:commandButton value="Limpiar" icon="fa fa-magic" type="reset" /></a>
+                        </div>
                     </h:form>
 
                 </ui:define>
