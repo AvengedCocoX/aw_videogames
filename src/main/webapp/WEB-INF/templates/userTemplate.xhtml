@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -52,21 +53,23 @@
                         </div>
                         <div class="nav-content grey lighten-2">
                             <ul class="tabs tabs-transparent">
-                                <li class="tab"><a href="#test1">Test 1</a></li>
-                                <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-                                <li class="tab"><a href="#test3">Disabled Tab</a></li>
-                                <li class="tab"><a href="#test4">Test 4</a></li>
+                                <h:form>
+                                    <ui:repeat value="#{menuNavPlataformBean.platformsNames}" var = "platform" varStatus="status">
+                                        <ui:fragment rendered ="#{status.index eq 0}">
+                                            <li class="tab"><a class ="active" href="#{platform}">#{platform}</a></li>
+                                        </ui:fragment>
+                                        <ui:fragment rendered ="#{status.index ne 0}">
+                                            <li class="tab"><a href="#{platform}">#{platform}</a></li>
+                                        </ui:fragment>
+                                    </ui:repeat>
+                                </h:form>
                             </ul>
                         </div>
                     </nav>
-                    
-
                 </div>
-                    <div id="test1" class="col s12">Test 1</div>
-                    <div id="test2" class="col s12">Test 2</div>
-                    <div id="test3" class="col s12">Test 3</div>
-                    <div id="test4" class="col s12">Test 4</div>
+
             </h:form>
+
             <!--<div class="nav-content">
                 <ul class="tabs tabs-transparent">
                     <li class="tab"><a href="#">Noticias</a></li>
