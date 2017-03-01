@@ -27,6 +27,7 @@
                     <div style="margin-top: 10%; margin-bottom: 6%; margin-left: 25%">
                         <div class="card horizontal" style="width: 60%">
                             <div class="card-stacked">
+                                <h5 class="header" style="margin: auto; margin-top: 30px; color: #999999; font-family: 'Lato', sans-serif; font-size: 30px; font-weight: 300; line-height: 58px; ">Registrarse en la aplicación</h5>
                                 <div class="card-content">
                                     <div class="input-field col s6">
                                         <p:inputText id="name" value="#{registrarUsuarioBean.user.name}" required="true"/>
@@ -49,8 +50,8 @@
                                 </div>
                                 
                                 <div class="card-action">
-                                    <p:commandButton value="Registrarse" icon="fa fa-user" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}"></p:commandButton>
-                                    <p:commandButton value="Limpiar" icon="fa fa-magic" type="reset" style="float: right"/>
+                                    <p:commandButton class="btn waves-effect waves-ligh" value="Registrarse" icon="fa fa-angellist" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}" style="float: left"></p:commandButton>
+                                    <p:commandButton class="btn waves-effect waves-ligh" value="Limpiar" icon="fa fa-magic" type="reset" style="float: right"/>
                                 </div>
                             </div>
                             <div style="visibility: hidden">#{registrarUsuarioBean.group.groupname="user"}</div>
