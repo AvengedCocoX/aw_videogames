@@ -19,10 +19,23 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-
+        <script>
+            $(window).scroll(
+                    function(){
+                        if($(window).scrollTop()>50){
+                            $("#prueba").removeClass("navScroll2");
+                           $("#prueba").addClass("navScroll");
+                        }else{
+                            $("#prueba").removeClass("navScroll");
+                            $("#prueba").addClass("navScroll2");
+                        }
+                    }
+                    );
+        </script>
+        
         <ui:insert name="top">
             <h:form>
-                <div class="navbar-fixed">
+                <div class="navbar-fixed navScroll2" id="prueba">
                     <!-- Dropdown Structure -->
                     <ul id="dropdown1" class="dropdown-content">
                         <li>
@@ -39,7 +52,7 @@
                     </ul>
 
                     <nav class="nav-extended">
-                        <div class="nav-wrapper grey lighten-1">
+                        <div class="nav-wrapper grey lighten-1" >
                             <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index" />
                             <ul class="right hide-on-med-and-down">
                                 <li><h:link value="Registrarse" outcome="registrarUsuario.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">assignment_ind</i></h:link></li>
@@ -48,10 +61,10 @@
                                     <h:outputLink rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}">
                                         <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">verified_user</i><i class="material-icons right">arrow_drop_down</i>#{sessionBean.nombre}</a>
                                     </h:outputLink>
-                                </li>
+                                </li> 
                             </ul>
                         </div>
-                        <div class="nav-content grey lighten-2">
+                        <div style= "" class="nav-content grey lighten-2">
                             <ul class="tabs tabs-transparent">
                                 <h:form>
                                     <ui:repeat value="#{menuNavPlataformBean.platformsNames}" var = "platform" varStatus="status">
@@ -65,6 +78,15 @@
                                 </h:form>
                             </ul>
                         </div>
+                        <div class="nav-content grey lighten-2">
+                            <ul class="tabs tabs-transparent">
+                                <li class="tab"><a href="#{platform}">Juegos</a></li>
+                                <li class="tab"><a href="#{platform}">Noticias</a></li>
+                                <li class="tab"><a href="#{platform}">Videos</a></li>
+                                <li class="tab"><a href="#{platform}">Imagenes</a></li>
+                            </ul>
+                        </div>
+
                     </nav>
                 </div>
 
