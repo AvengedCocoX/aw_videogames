@@ -4042,11 +4042,11 @@ nav .nav-wrapper {
     height: 100%;
 }
 
-@media only screen and (min-width: 993px) {
+/*@media only screen and (min-width: 993px) {
     nav a.button-collapse {
         display: none;
     }
-}
+}*/
 
 nav .button-collapse {
     float: left;
@@ -7107,7 +7107,7 @@ input[type=range]:focus::-ms-fill-upper {
     left: auto;
 }
 
-@media only screen and (max-width: 992px) {
+/*@media only screen and (max-width: 992px) {
     .side-nav.fixed {
         -webkit-transform: translateX(-105%);
         transform: translateX(-105%);
@@ -7122,7 +7122,7 @@ input[type=range]:focus::-ms-fill-upper {
     .side-nav .userView {
         padding: 16px 16px 0;
     }
-}
+}*/
 
 .side-nav .collapsible-body > ul:not(.collapsible) > li.active,
 .side-nav.fixed .collapsible-body > ul:not(.collapsible) > li.active {

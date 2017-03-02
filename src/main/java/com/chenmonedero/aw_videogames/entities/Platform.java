@@ -61,7 +61,7 @@ public class Platform implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "developer")
     private String developer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlatform")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "platformName")
     private Collection<Game> gameCollection;
 
     public Platform() {

@@ -21,18 +21,18 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script>
             $(window).scroll(
-                    function(){
-                        if($(window).scrollTop()>50){
+                    function () {
+                        if ($(window).scrollTop() > 50) {
                             $("#prueba").removeClass("navScroll2");
-                           $("#prueba").addClass("navScroll");
-                        }else{
+                            $("#prueba").addClass("navScroll");
+                        } else {
                             $("#prueba").removeClass("navScroll");
                             $("#prueba").addClass("navScroll2");
                         }
                     }
-                    );
+            );
         </script>
-        
+
         <ui:insert name="top">
             <h:form>
                 <div class="navbar-fixed navScroll2" id="prueba">
@@ -52,8 +52,10 @@
                     </ul>
 
                     <nav class="nav-extended">
+                        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
                         <div class="nav-wrapper grey lighten-1" >
-                            <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index" />
+                            
+                            <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index"/>
                             <ul class="right hide-on-med-and-down">
                                 <li><h:link value="Registrarse" outcome="registrarUsuario.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">assignment_ind</i></h:link></li>
                                 <li><h:link value="Iniciar sesión" outcome="login.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">perm_identity</i></h:link></li>
@@ -101,7 +103,21 @@
         </ui:insert>
 
 
-
+        <ul id="slide-out" class="side-nav">
+            <li><div class="userView">
+                    <div class="background">
+                        <img src="resources/images/img.jpg" style="max-height: 100%; max-width: 100%" />
+                    </div>
+                    <a href="#!user"><img class="circle" /></a>
+                    <a href="#!name"><span class="white-text name">John Doe</span></a>
+                    <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+                </div></li>
+            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+            <li><a href="#!">Second Link</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Subheader</a></li>
+            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        </ul>
 
         <div style="margin-left: 5%; margin-top: 2%; margin-bottom: 3%">
             <ui:insert name="content">Content</ui:insert>
@@ -137,10 +153,15 @@
             </footer>
         </ui:insert>
 
+
         <!-- JavaScript -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
         <h:outputScript library="js" name="materialize.js" />
 
         <script>
+            // Initialize collapse button
+            $(".button-collapse").sideNav();
+            
             jQuery(document).ready(function ()
             {
                 $(".dropdown-button").dropdown();

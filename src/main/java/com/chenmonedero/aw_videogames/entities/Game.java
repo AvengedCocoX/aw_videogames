@@ -104,9 +104,9 @@ public class Game implements Serializable {
     private Collection<News> newsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGame")
     private Collection<Valoration> valorationCollection;
-    @JoinColumn(name = "id_platform", referencedColumnName = "id_platform")
+    @JoinColumn(name = "platform_name", referencedColumnName = "name")
     @ManyToOne(optional = false)
-    private Platform idPlatform;
+    private Platform platformName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGame")
     private Collection<GameVideo> gameVideoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGame")
@@ -230,12 +230,12 @@ public class Game implements Serializable {
         this.valorationCollection = valorationCollection;
     }
 
-    public Platform getIdPlatform() {
-        return idPlatform;
+    public Platform getPlatformName() {
+        return platformName;
     }
 
-    public void setIdPlatform(Platform idPlatform) {
-        this.idPlatform = idPlatform;
+    public void setPlatformName(Platform platformName) {
+        this.platformName = platformName;
     }
 
     @XmlTransient
