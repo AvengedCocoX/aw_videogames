@@ -66,15 +66,15 @@
                                 </li> 
                             </ul>
                         </div>
-                        <div style= "" class="nav-content grey lighten-2">
+                        <div class="nav-content grey lighten-2">
                             <ul class="tabs tabs-transparent">
                                 <h:form>
                                     <ui:repeat value="#{menuNavPlataformBean.platformsNames}" var = "platform" varStatus="status">
                                         <ui:fragment rendered ="#{status.index eq 0}">
-                                            <li class="tab"><a class ="active" href="#{platform}">#{platform}</a></li>
+                                            <li class="tab "><h:link value ="#{platform}" outcome="main.xhtml"></h:link> </li>
                                         </ui:fragment>
                                         <ui:fragment rendered ="#{status.index ne 0}">
-                                            <li class="tab"><a href="#{platform}">#{platform}</a></li>
+                                            <li class="tab "><h:link value ="#{platform}" outcome="main.xhtml"></h:link> </li>
                                         </ui:fragment>
                                     </ui:repeat>
                                 </h:form>

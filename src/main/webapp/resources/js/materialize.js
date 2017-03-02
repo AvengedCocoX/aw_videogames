@@ -1367,7 +1367,9 @@ if (jQuery) {
 
   };
 }( jQuery ));
-;(function ($) {
+
+/*************************************/
+/*;(function ($) {
 
   var methods = {
     init : function(options) {
@@ -1600,6 +1602,8 @@ if (jQuery) {
     $('ul.tabs').tabs();
   });
 }( jQuery ));
+*/
+/**********************************************/
 ;(function ($) {
     $.fn.tooltip = function (options) {
       var timeout = null,
