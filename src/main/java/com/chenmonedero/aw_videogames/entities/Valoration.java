@@ -59,12 +59,12 @@ public class Valoration implements Serializable {
     @Column(name = "valoration_date")
     @Temporal(TemporalType.DATE)
     private Date valorationDate;
-    @JoinColumn(name = "id_game", referencedColumnName = "id_game")
-    @ManyToOne(optional = false)
-    private Game idGame;
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private User username;
+    @JoinColumn(name = "game_title", referencedColumnName = "title")
+    @ManyToOne(optional = false)
+    private Game gameTitle;
 
     public Valoration() {
     }
@@ -112,20 +112,20 @@ public class Valoration implements Serializable {
         this.valorationDate = valorationDate;
     }
 
-    public Game getIdGame() {
-        return idGame;
-    }
-
-    public void setIdGame(Game idGame) {
-        this.idGame = idGame;
-    }
-
     public User getUsername() {
         return username;
     }
 
     public void setUsername(User username) {
         this.username = username;
+    }
+
+    public Game getGameTitle() {
+        return gameTitle;
+    }
+
+    public void setGameTitle(Game gameTitle) {
+        this.gameTitle = gameTitle;
     }
 
     @Override

@@ -62,9 +62,9 @@ public class News implements Serializable {
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private User username;
-    @JoinColumn(name = "id_game", referencedColumnName = "id_game")
+    @JoinColumn(name = "game_title", referencedColumnName = "title")
     @ManyToOne
-    private Game idGame;
+    private Game gameTitle;
 
     public News() {
     }
@@ -127,12 +127,12 @@ public class News implements Serializable {
         this.username = username;
     }
 
-    public Game getIdGame() {
-        return idGame;
+    public Game getGameTitle() {
+        return gameTitle;
     }
 
-    public void setIdGame(Game idGame) {
-        this.idGame = idGame;
+    public void setGameTitle(Game gameTitle) {
+        this.gameTitle = gameTitle;
     }
 
     @Override

@@ -100,16 +100,16 @@ public class Game implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "players")
     private String players;
-    @OneToMany(mappedBy = "idGame")
+    @OneToMany(mappedBy = "gameTitle")
     private Collection<News> newsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGame")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gameTitle")
     private Collection<Valoration> valorationCollection;
     @JoinColumn(name = "platform_name", referencedColumnName = "name")
     @ManyToOne(optional = false)
     private Platform platformName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGame")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gameTitle")
     private Collection<GameVideo> gameVideoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGame")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gameTitle")
     private Collection<GameImage> gameImageCollection;
 
     public Game() {

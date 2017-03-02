@@ -44,9 +44,9 @@ public class GameImage implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "url")
     private String url;
-    @JoinColumn(name = "id_game", referencedColumnName = "id_game")
+    @JoinColumn(name = "game_title", referencedColumnName = "title")
     @ManyToOne(optional = false)
-    private Game idGame;
+    private Game gameTitle;
 
     public GameImage() {
     }
@@ -76,12 +76,12 @@ public class GameImage implements Serializable {
         this.url = url;
     }
 
-    public Game getIdGame() {
-        return idGame;
+    public Game getGameTitle() {
+        return gameTitle;
     }
 
-    public void setIdGame(Game idGame) {
-        this.idGame = idGame;
+    public void setGameTitle(Game gameTitle) {
+        this.gameTitle = gameTitle;
     }
 
     @Override
