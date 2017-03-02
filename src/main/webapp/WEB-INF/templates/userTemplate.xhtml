@@ -19,18 +19,18 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script>
-            $(window).scroll(
+        <script> 
+            $(window).scroll(                   
                     function(){
-                        if($(window).scrollTop()>50){
+                        if($(window).scrollTop()>50){                            
                             $("#prueba").removeClass("navScroll2");
-                           $("#prueba").addClass("navScroll");
+                            $("#prueba").addClass("navScroll");
                         }else{
                             $("#prueba").removeClass("navScroll");
                             $("#prueba").addClass("navScroll2");
                         }
                     }
-                    );
+                );
         </script>
         
         <ui:insert name="top">
