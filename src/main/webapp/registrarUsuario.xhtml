@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -30,27 +31,44 @@
                                 <h5 class="header" style="margin: auto; margin-top: 30px; color: #999999; font-family: 'Lato', sans-serif; font-size: 30px; font-weight: 300; line-height: 58px; ">Registrarse en la aplicación</h5>
                                 <div class="card-content">
                                     <div class="input-field col s6">
-                                        <p:inputText id="name" value="#{registrarUsuarioBean.user.name}" required="true"/>
+                                        <p:inputText id="name" value="#{registrarUsuarioBean.user.name}" required="true">
+                                            <f:ajax event="keyup" execute ="name" render="checkNameField"/>
+                                            <p:ajax event="keyup" update="register" />
+                                        </p:inputText>
+                                        <h:outputText id="checkNameField" style="#{registrarUsuarioBean.user.name.length() lt 2 and registrarUsuarioBean.user.name.length() gt 0 ? 'color:Red;': 'display:none;'}" value="El nombre contiene al menos dos caracteres"/>
                                         <label for="name">Nombre</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <p:inputText id="username" value="#{registrarUsuarioBean.user.username}" required="true"/>
+                                        <p:inputText id="username" value="#{registrarUsuarioBean.user.username}" required="true">
+                                            <f:ajax event="keyup" execute ="username" render="checkUserNameField"/>
+                                            <p:ajax event="keyup" update="register" />
+                                        </p:inputText>
+                                        <h:outputText id="checkUserNameField" style="#{registrarUsuarioBean.checkUserName() eq 'Disponible' ? 'color:Green;': 'color:Red;'}" value="#{registrarUsuarioBean.checkUserName()}"/>
                                         <label for="username">Nombre de usuario</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <p:password id="password" value="#{registrarUsuarioBean.user.password}" validatorMessage="Las claves no coinciden" match="confirm_password" feedback="true" required="true"/>
+                                        <p:password id="password" value="#{registrarUsuarioBean.user.password}" required="true">
+                                            <f:ajax event="keyup" execute ="password" render="checkPasswordField"/>
+                                            <f:ajax event="keyup" execute ="password" render="checkPasswordConfirmField"/>
+                                            <p:ajax event="keyup" update="register" />
+                                        </p:password>
+                                        <h:outputText id="checkPasswordField" style="#{registrarUsuarioBean.user.password.length() lt 5 and registrarUsuarioBean.user.password.length() gt 0 ? 'color:Red;': 'display:none;'}" value="La contraseña contiene al menos cinco caracteres"/>
                                         <label for="password">Contraseña</label>
                                         <p:message for="confirm_password" /> 
                                     </div>
                                     <div class="input-field col s6">
-                                        <p:password id="confirm_password" required="true"/>
+                                        <p:password id="confirm_password" value="#{registrarUsuarioBean.passwordConfirm}" required="true">
+                                             <f:ajax event="keyup" execute ="confirm_password" render="checkPasswordConfirmField"/>
+                                             <p:ajax event="keyup" update="register" />
+                                        </p:password>
+                                        <h:outputText id="checkPasswordConfirmField" style="#{registrarUsuarioBean.user.password ne registrarUsuarioBean.passwordConfirm and registrarUsuarioBean.passwordConfirm.length() gt 0? 'color:Red;': 'display:none;'}" value="No coinciden los dos campos de contraseña"/>
                                         <label for="confirm_password">Confirmar contraseña</label>
                                         <p:message for="confirm_password" /> 
                                     </div>
                                 </div>
                                 
                                 <div class="card-action">
-                                    <p:commandButton class="btn waves-effect waves-ligh" value="Registrarse" icon="fa fa-angellist" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}" style="float: left"></p:commandButton>
+                                    <p:commandButton class="btn waves-effect waves-ligh" disabled="#{(registrarUsuarioBean.checkInputField())}" id = "register" value="Registrarse" icon="fa fa-angellist" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}" style="float: left"></p:commandButton>
                                     <p:commandButton class="btn waves-effect waves-ligh" value="Limpiar" icon="fa fa-magic" type="reset" style="float: right"/>
                                 </div>
                             </div>
