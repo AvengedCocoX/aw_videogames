@@ -26,12 +26,22 @@ public class MenuNavPlataformBean {
     
     private List<String> names;
     
+    //G&S
+    public List<String> getNames() {
+        return names;
+    }
+
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+    
+    
     @PostConstruct
     public void init() {
         this.names = getPlatformsNames();
     }
     
-    public List<String> getPlatformsNames(){
+    private List<String> getPlatformsNames(){
         List<Platform> listPlatform = platformEJB.findAll();
         List<String> names = new ArrayList<>();
         for(Platform p: listPlatform){
