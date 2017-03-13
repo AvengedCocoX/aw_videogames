@@ -31,6 +31,20 @@
                         }
                     }
             );
+            $(document).ready(function () {
+                $(".optionStatusList").click(function () {
+                    var x = document.getElementsByClassName("active");
+                    x[1].className = "optionStatusList"
+                    this.className += " active";
+                });
+            });
+            $(document).ready(function () {
+                $(".platformStatusList").click(function () {
+                    var x = document.getElementsByClassName("active");
+                    x[0].className = "platformStatusList"
+                    this.className += " active";
+                });
+            });
         </script>
 
         <ui:insert name="top">
@@ -54,7 +68,7 @@
                     <nav class="nav-extended">
                         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
                         <div class="nav-wrapper grey lighten-1" >
-                            
+
                             <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index"/>
                             <ul class="right hide-on-med-and-down">
                                 <li><h:link value="Registrarse" outcome="registrarUsuario.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">assignment_ind</i></h:link></li>
@@ -71,10 +85,10 @@
                                 <h:form>
                                     <ui:repeat value="#{menuNavPlataformBean.names}" var = "platform" varStatus="status">
                                         <ui:fragment rendered ="#{status.index eq 0}">
-                                            <li class="tab "><h:link value ="#{platform}" outcome="main.xhtml"></h:link> </li>
+                                            <li class="tab "><h:link class="platformStatusList active" value ="#{platform}" outcome="main.xhtml"></h:link></li>
                                         </ui:fragment>
                                         <ui:fragment rendered ="#{status.index ne 0}">
-                                            <li class="tab "><h:link value ="#{platform}" outcome="main.xhtml"></h:link> </li>
+                                            <li class="tab "><h:link class = "platformStatusList" value ="#{platform}" outcome="main.xhtml"></h:link> </li>
                                         </ui:fragment>
                                     </ui:repeat>
                                 </h:form>
@@ -82,10 +96,10 @@
                         </div>
                         <div class="nav-content grey lighten-2">
                             <ul class="tabs tabs-transparent">
-                                <li class="tab"><a href="#{platform}">Juegos</a></li>
-                                <li class="tab"><a href="#{platform}">Noticias</a></li>
-                                <li class="tab"><a href="#{platform}">Videos</a></li>
-                                <li class="tab"><a href="#{platform}">Imagenes</a></li>
+                                <li class="tab "><a class="optionStatusList active" href="#!">Juegos</a></li>
+                                <li class="tab "><a class="optionStatusList" href="#!">Noticias</a></li>
+                                <li class="tab "><a class="optionStatusList" href="#!">Videos</a></li>
+                                <li class="tab "><a class="optionStatusList" href="#!">Imagenes</a></li>
                             </ul>
                         </div>
 
@@ -161,7 +175,7 @@
         <script>
             // Initialize collapse button
             $(".button-collapse").sideNav();
-            
+
             jQuery(document).ready(function ()
             {
                 $(".dropdown-button").dropdown();
