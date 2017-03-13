@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -21,7 +22,7 @@ import javax.inject.Named;
  * @author AvengedCocoX
  */
 @Named
-@RequestScoped
+@ApplicationScoped
 public class CarouselBean implements Serializable{
     @EJB
     private GameFacadeLocal gameEJB;
