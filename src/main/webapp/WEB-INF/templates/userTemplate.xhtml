@@ -192,6 +192,7 @@
                     <div class="indeterminate"></div>
                 </div>
 
+                <p>#{dataScrollerBean.countLoaded} / #{dataScrollerBean.countTotal}</p>
 
                 <h:commandButton id="data-loader" class="btn waves-effect waves-ligh" value="Load Data" action="#{dataScrollerBean.loadData()}">
                     <f:ajax onevent="ajaxEvent" render="loaded-data"/>
