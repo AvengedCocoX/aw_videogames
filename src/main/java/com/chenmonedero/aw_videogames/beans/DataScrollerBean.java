@@ -14,8 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -35,6 +33,8 @@ public class DataScrollerBean implements Serializable {
     private List<Game> gameList;
 
     private int i;
+    
+    private int countTotal, countLoaded;
 
     //G&S
     public List<Game> getGameList() {
@@ -45,6 +45,23 @@ public class DataScrollerBean implements Serializable {
         this.gameList = gameList;
     }
 
+    public int getCountTotal() {
+        return countTotal;
+    }
+
+    public void setCountTotal(int countTotal) {
+        this.countTotal = countTotal;
+    }
+
+    public int getCountLoaded() {
+        return countLoaded;
+    }
+
+    public void setCountLoaded(int countLoaded) {
+        this.countLoaded = countLoaded;
+    }
+    
+
     @PostConstruct
     public void init() {
         gameListFull = gameEJB.findAll();
@@ -53,6 +70,9 @@ public class DataScrollerBean implements Serializable {
         for (i = 0; i < 3; i++) {
             gameList.add(gameListFull.get(i));
         }
+        
+        countTotal = gameListFull.size();
+        countLoaded = gameList.size();
     }
 
     public void loadData() {
@@ -68,8 +88,9 @@ public class DataScrollerBean implements Serializable {
             for (i = i; i < temp + 2; i++) {
                 //System.out.println("i: "+i);
                 gameList.add(gameListFull.get(i));
-                
+                countLoaded++;
             }
+            //System.out.println("countLoaded: "+countLoaded);
         }
     }
 }
