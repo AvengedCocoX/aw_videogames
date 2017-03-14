@@ -10,8 +10,6 @@ import com.chenmonedero.aw_videogames.sessionBeans.GameFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -33,11 +31,21 @@ public class DataScrollerBean implements Serializable {
     private List<Game> gameList;
 
     private int i;
-    
+
     private int countTotal, countLoaded;
+
+    private String platformLoaded;
     
     //Asignar
     private Game game;
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     //G&S
     public List<Game> getGameList() {
@@ -64,46 +72,39 @@ public class DataScrollerBean implements Serializable {
         this.countLoaded = countLoaded;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-    
-    
-
     @PostConstruct
     public void init() {
-        gameListFull = gameEJB.findAll();
+
         gameList = new ArrayList<>();
 
-        for (i = 0; i < 3; i++) {
-            gameList.add(gameListFull.get(i));
+    }
+
+    public List<Game> loadData(String platform) {
+        if (platform != platformLoaded) {
+            getGamesListWithPlatform(platform);
         }
+
         
-        countTotal = gameListFull.size();
+        if (i + 2 <= countTotal) {
+            int tmp = i;
+            for (i = i; i < tmp + 2; i++) {
+                gameList.add(gameListFull.get(i));
+            }
+        }
+
         countLoaded = gameList.size();
+        return gameList;
+    }
+
+    public void getGamesListWithPlatform(String platform) {
+        i = 0;
+        platformLoaded = platform;
+        gameListFull = gameEJB.getGameByPlatform(platform);
+        countTotal = gameListFull.size();
     }
 
     public void loadData() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(DataScrollerBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (i < gameListFull.size()-1) {
-            int temp = i;            
-            //System.out.println("temp: "+temp);
-            
-            for (i = i; i < temp + 2; i++) {
-                //System.out.println("i: "+i);
-                gameList.add(gameListFull.get(i));
-                countLoaded++;
-            }
-            //System.out.println("countLoaded: "+countLoaded);
-        }
+
     }
     
     //Recibe como parámetro un usuario
