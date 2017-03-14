@@ -169,18 +169,18 @@
     <!-- Lista de los juegos -->
         <h:form id="loaded-data">
             <div class="container" style="margin-top: 10%">
-                <div id="data-scroller-panel" onscroll="loadData(this);">
-                    <ui:repeat value="#{dataScrollerBean.gameList}" var="gl">
+                <div id="data-scroller-panel">
+                    <ui:repeat value="#{dataScrollerBean.gameList}" var="game">
                         <div class="card horizontal" style="width: 100%">
                             <div class="card-image">
-                                <img src="#{gl.profileImage}" style="position: relative;float: left;width:  200px;height: 250px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/>
+                                <img src="#{game.profileImage}" style="position: relative;float: left;width:  200px;height: 250px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/>
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <p>#{gl.description}</p>
+                                    <p>#{game.description}</p>
                                 </div>
                                 <div class="card-action">
-                                    <a href="#">#{gl.title}</a>
+                                    <h:commandLink value="#{game.title}" action="gameInfo" actionListener="#{dataScrollerBean.asignar(game)}"/>
                                 </div>
                             </div>
                         </div>

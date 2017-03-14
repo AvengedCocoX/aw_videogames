@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -22,11 +22,11 @@ import javax.inject.Named;
  * @author AvengedCocoX
  */
 @Named
-@ViewScoped
+@SessionScoped
 public class DataScrollerBean implements Serializable {
 
     @EJB
-    private GameFacadeLocal gameEJB;
+    private GameFacadeLocal gameEJB;    
 
     private List<Game> gameListFull;
 
@@ -35,6 +35,9 @@ public class DataScrollerBean implements Serializable {
     private int i;
     
     private int countTotal, countLoaded;
+    
+    //Asignar
+    private Game game;
 
     //G&S
     public List<Game> getGameList() {
@@ -60,6 +63,15 @@ public class DataScrollerBean implements Serializable {
     public void setCountLoaded(int countLoaded) {
         this.countLoaded = countLoaded;
     }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+    
     
 
     @PostConstruct
@@ -92,5 +104,11 @@ public class DataScrollerBean implements Serializable {
             }
             //System.out.println("countLoaded: "+countLoaded);
         }
+    }
+    
+    //Recibe como parámetro un usuario
+    public void asignar(Game game)
+    {
+        this.game = game;
     }
 }
