@@ -30,4 +30,6 @@ public interface GameFacadeLocal {
 
     int count();
     
+    public List<Game> getGameByPlatform(String platform);
+    
 }

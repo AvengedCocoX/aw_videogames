@@ -6,9 +6,11 @@
 package com.chenmonedero.aw_videogames.sessionBeans;
 
 import com.chenmonedero.aw_videogames.entities.Game;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +30,15 @@ public class GameFacade extends AbstractFacade<Game> implements GameFacadeLocal 
         super(Game.class);
     }
     
+    
+    @Override
+    public List<Game> getGameByPlatform(String platform){
+        List<Game> gamesOfPlatform = null;
+        Query query = em.createNamedQuery("Game.findByPlatform");
+        query.setParameter("platformName", platform);
+        
+        gamesOfPlatform = (List<Game>) query.getResultList();
+                
+        return gamesOfPlatform;
+    }
 }
