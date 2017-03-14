@@ -181,7 +181,7 @@
                                     <p>#{gl.description}</p>
                                 </div>
                                 <div class="card-action">
-                                    <a href="#">#{gl.title}</a>
+                                    <h:commandLink value="#{gl.title}" action="registrarUsuario"/>                                    
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                 <div id="ajax-loader" class="progress" style="display: none">
                     <div class="indeterminate"></div>
                 </div>
-
+                
                 <p>#{dataScrollerBean.countLoaded} / #{dataScrollerBean.countTotal}</p>
 
                 <h:commandButton id="data-loader" class="btn waves-effect waves-ligh" value="Load Data" action="#{dataScrollerBean.loadData()}">
