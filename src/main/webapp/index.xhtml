@@ -170,7 +170,7 @@
         <h:form id="loaded-data">
             <div class="container" style="margin-top: 10%">
                 <div id="data-scroller-panel" onscroll="loadData(this);">
-                    <ui:repeat value="#{dataScrollerBean.gameList}" var="gl">
+                    <ui:repeat value="#{dataScrollerBean.loadData('Xbox One')}" var="gl">
                         <div class="card horizontal" style="width: 100%">
                             <div class="card-image">
                                 <img src="#{gl.profileImage}" style="position: relative;float: left;width:  200px;height: 250px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/>
