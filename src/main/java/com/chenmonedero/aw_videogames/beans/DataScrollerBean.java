@@ -24,18 +24,26 @@ import javax.inject.Named;
 public class DataScrollerBean implements Serializable {
 
     @EJB
-    private GameFacadeLocal gameEJB;    
+    private GameFacadeLocal gameEJB;
 
     private List<Game> gameListFull;
 
     private List<Game> gameList;
 
     private int i;
+    
+    //The size that is be increment each time data is loaded
+    private final int incrementSize = 2;
+    
+    //The initial size of game list
+    private final int gameListInitSize = 0;
+    
+    private int sizeGamesList = 0;
+    
 
     private int countTotal, countLoaded;
 
-    private String platformLoaded;
-    
+
     //Asignar
     private Game game;
 
@@ -76,20 +84,13 @@ public class DataScrollerBean implements Serializable {
     public void init() {
 
         gameList = new ArrayList<>();
-
+        getGamesListWithPlatform("Xbox One");
     }
 
-    public List<Game> loadData(String platform) {
-        if (platform != platformLoaded) {
-            getGamesListWithPlatform(platform);
-        }
+    public List<Game> loadData() {
 
-        
-        if (i + 2 <= countTotal) {
-            int tmp = i;
-            for (i = i; i < tmp + 2; i++) {
-                gameList.add(gameListFull.get(i));
-            }
+        for (i = i; i < sizeGamesList; i++) {
+            gameList.add(gameListFull.get(i));
         }
 
         countLoaded = gameList.size();
@@ -98,18 +99,28 @@ public class DataScrollerBean implements Serializable {
 
     public void getGamesListWithPlatform(String platform) {
         i = 0;
-        platformLoaded = platform;
         gameListFull = gameEJB.getGameByPlatform(platform);
         countTotal = gameListFull.size();
     }
 
-    public void loadData() {
+    public void incrementGamesList() {
+        if (sizeGamesList + incrementSize <= countTotal) {
+            sizeGamesList += incrementSize;
+        } else {
+            sizeGamesList = countTotal;
+        }
+    }
 
+    //Recibe como parámetro un usuario
+    public void asignar(Game game) {
+        this.game = game;
     }
     
-    //Recibe como parámetro un usuario
-    public void asignar(Game game)
-    {
-        this.game = game;
+    //Change the loaded list of platform
+    public void changePlatform(String platform){
+        i=0;
+        sizeGamesList = gameListInitSize;
+        gameList.clear();
+        getGamesListWithPlatform(platform);
     }
 }

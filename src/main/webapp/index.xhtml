@@ -49,11 +49,14 @@
         </script>
 
         <script>
-            function loadData(panel) {
-                if ((panel.scrollTop + panel.clientHeight) >= panel.scrollHeight) {
-                    document.getElementById("form:data-loader").click();
-                }
-            }
+             $(window).scroll(
+                    function () {
+                        if (10 > $(document).height()-($(window).scrollTop()+$(window).height())) {
+                           document.getElementById("loaded-data:data-loader").onclick();
+                        } 
+                    }
+            );
+
             function ajaxEvent(data) {
                 var status = data.status;
                 if (status == "begin") {
@@ -70,72 +73,76 @@
             });
         </script>
 
-            <h:form>
-                <div class="navbar-fixed navScroll2" id="prueba">
-                    <!-- Dropdown Structure -->
-                    <ul id="dropdown1" class="dropdown-content">
-                        <li>
-                            <h:form id="form01" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}">
-                                <a href="#!"><i class="material-icons left">perm_identity</i>#{sessionBean.nombre}</a>
-                            </h:form>
-                        </li>
-                        <li class="divider"></li>
-                        <li><h:link value="Configuración" style="width: 200'px"></h:link></li>
-                        <li>
-                            <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}"></h:commandLink>
-                        </li>
+        <h:form>
+            <div class="navbar-fixed navScroll2" id="prueba">
+                <!-- Dropdown Structure -->
+                <ul id="dropdown1" class="dropdown-content">
+                    <li>
+                        <h:form id="form01" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}">
+                            <a href="#!"><i class="material-icons left">perm_identity</i>#{sessionBean.nombre}</a>
+                        </h:form>
+                    </li>
+                    <li class="divider"></li>
+                    <li><h:link value="Configuración" style="width: 200'px"></h:link></li>
+                    <li>
+                        <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}"></h:commandLink>
+                    </li>
 
-                    </ul>
-
-                    <nav class="nav-extended">
-                        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-                        <div class="nav-wrapper grey darken-4" >
-
-                            <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index"/>
-                            <ul class="right hide-on-med-and-down">
-                                <li><h:link value="Registrarse" outcome="registrarUsuario.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">assignment_ind</i></h:link></li>
-                                <li><h:link value="Iniciar sesión" outcome="login.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">perm_identity</i></h:link></li>
-                                <li>
-                                    <h:outputLink rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}">
-                                        <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">verified_user</i><i class="material-icons right">arrow_drop_down</i>#{sessionBean.nombre}</a>
-                                    </h:outputLink>
-                                </li> 
-                            </ul>
-                        </div>
-                        <div class="nav-content grey darken-1">
-                            <ul class="tabs tabs-transparent">
-                                <h:form>
-                                    <ui:repeat value="#{menuNavPlataformBean.names}" var = "platform" varStatus="status">
-                                        <ui:fragment rendered ="#{status.index eq 0}">
-                                            <li class="tab "><h:link class="platformStatusList active" value ="#{platform}" outcome="main.xhtml"></h:link></li>
-                                        </ui:fragment>
-                                        <ui:fragment rendered ="#{status.index ne 0}">
-                                            <li class="tab "><h:link class = "platformStatusList" value ="#{platform}" outcome="main.xhtml"></h:link> </li>
-                                        </ui:fragment>
-                                    </ui:repeat>
-                                </h:form>
-                            </ul>
-                        </div>
-                        <div class="nav-content grey">
-                            <ul class="tabs tabs-transparent">
-                                <li class="tab "><a class="optionStatusList active" href="#!">Juegos</a></li>
-                                <li class="tab "><a class="optionStatusList" href="#!">Noticias</a></li>
-                                <li class="tab "><a class="optionStatusList" href="#!">Videos</a></li>
-                                <li class="tab "><a class="optionStatusList" href="#!">Imagenes</a></li>
-                            </ul>
-                        </div>
-
-                    </nav>
-                </div>
-
-            </h:form>
-
-            <!--<div class="nav-content">
-                <ul class="tabs tabs-transparent">
-                    <li class="tab"><a href="#">Noticias</a></li>
-                    <li class="tab"><a href="registrarUsuario.xhtml">Videojuegos</a></li>
                 </ul>
-            </div>-->
+
+                <nav class="nav-extended">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <div class="nav-wrapper grey darken-4" >
+
+                        <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index"/>
+                        <ul class="right hide-on-med-and-down">
+                            <li><h:link value="Registrarse" outcome="registrarUsuario.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">assignment_ind</i></h:link></li>
+                            <li><h:link value="Iniciar sesión" outcome="login.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">perm_identity</i></h:link></li>
+                            <li>
+                                <h:outputLink rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}">
+                                    <a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">verified_user</i><i class="material-icons right">arrow_drop_down</i>#{sessionBean.nombre}</a>
+                                </h:outputLink>
+                            </li> 
+                        </ul>
+                    </div>
+                    <div class="nav-content grey darken-1">
+                        <ul class="tabs tabs-transparent">
+                            <h:form>
+                                <ui:repeat value="#{menuNavPlataformBean.names}" var = "platform" varStatus="status">
+                                    <ui:fragment rendered ="#{status.index eq 0}">
+                                        <li class="tab "><h:commandLink class="platformStatusList active" value ="#{platform}" action="#{dataScrollerBean.changePlatform(platform)}" >
+                                                <f:ajax render="loaded-data"/>
+                                            </h:commandLink></li>
+                                    </ui:fragment>
+                                    <ui:fragment rendered ="#{status.index ne 0}">
+                                        <li class="tab "><h:commandLink class="platformStatusList" value ="#{platform}" action="#{dataScrollerBean.changePlatform(platform)}" >
+                                                <f:ajax render="loaded-data"/>
+                                            </h:commandLink></li>
+                                    </ui:fragment>
+                                </ui:repeat>
+                            </h:form>
+                        </ul>
+                    </div>
+                    <div class="nav-content grey">
+                        <ul class="tabs tabs-transparent">
+                            <li class="tab "><a class="optionStatusList active" href="#!">Juegos</a></li>
+                            <li class="tab "><a class="optionStatusList" href="#!">Noticias</a></li>
+                            <li class="tab "><a class="optionStatusList" href="#!">Videos</a></li>
+                            <li class="tab "><a class="optionStatusList" href="#!">Imagenes</a></li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+
+        </h:form>
+
+        <!--<div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab"><a href="#">Noticias</a></li>
+                <li class="tab"><a href="registrarUsuario.xhtml">Videojuegos</a></li>
+            </ul>
+        </div>-->
 
 
         <ul id="slide-out" class="side-nav">
@@ -166,11 +173,11 @@
 
         </h:form>
 
-    <!-- Lista de los juegos -->
+        <!-- Lista de los juegos -->
         <h:form id="loaded-data">
             <div class="container" style="margin-top: 10%">
                 <div id="data-scroller-panel">
-                    <ui:repeat value="#{dataScrollerBean.loadData('Xbox One')}" var="game">
+                    <ui:repeat value="#{dataScrollerBean.loadData()}" var="game">
                         <div class="card horizontal" style="width: 100%">
                             <div class="card-image">
                                 <img src="#{game.profileImage}" style="position: relative;float: left;width:  200px;height: 250px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/>
@@ -193,39 +200,39 @@
 
                 <p>#{dataScrollerBean.countLoaded} / #{dataScrollerBean.countTotal}</p>
 
-                <h:commandButton id="data-loader" class="btn waves-effect waves-ligh" value="Load Data" action="#{dataScrollerBean.loadData()}">
+                <h:commandButton id="data-loader"  style="display: none" class="btn waves-effect waves-ligh" value="Load Data" action="#{dataScrollerBean.incrementGamesList()}">
                     <f:ajax onevent="ajaxEvent" render="loaded-data"/>
                 </h:commandButton>
             </div>
         </h:form>
-   <!-- Lista de los juegos -->
+        <!-- Lista de los juegos -->
 
 
-            <footer class="page-footer grey darken-4">
+        <footer class="page-footer grey darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Footer Content</h5>
+                        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
                 <div class="container">
-                    <div class="row">
-                        <div class="col l6 s12">
-                            <h5 class="white-text">Footer Content</h5>
-                            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-                        </div>
-                        <div class="col l4 offset-l2 s12">
-                            <h5 class="white-text">Links</h5>
-                            <ul>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    © 2017 Aplicaciones Web
+                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
                 </div>
-                <div class="footer-copyright">
-                    <div class="container">
-                        © 2017 Aplicaciones Web
-                        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-                    </div>
-                </div>
-            </footer>
+            </div>
+        </footer>
 
 
         <!-- JavaScript -->
@@ -235,7 +242,6 @@
         <script>
             // Initialize collapse button
             $(".button-collapse").sideNav();
-
             jQuery(document).ready(function ()
             {
                 $(".dropdown-button").dropdown();
