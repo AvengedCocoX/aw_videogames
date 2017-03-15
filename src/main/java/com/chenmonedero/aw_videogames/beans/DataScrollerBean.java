@@ -29,6 +29,8 @@ public class DataScrollerBean implements Serializable {
     private List<Game> gameListFull;
 
     private List<Game> gameList;
+    
+    private List<String> images = new ArrayList<>();
 
     private int i;
     
@@ -47,6 +49,9 @@ public class DataScrollerBean implements Serializable {
     //Asignar
     private Game game;
 
+
+
+    //G&S
     public Game getGame() {
         return game;
     }
@@ -54,8 +59,20 @@ public class DataScrollerBean implements Serializable {
     public void setGame(Game game) {
         this.game = game;
     }
+    
+    public List<String> getImages() {
+        System.out.println(gameListFull.size());
+        images.clear();
+        for(Game g:gameListFull){
+            images.add(g.getProfileImage());
+        }
+        return images;
+    }
 
-    //G&S
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+    
     public List<Game> getGameList() {
         return gameList;
     }
@@ -82,7 +99,6 @@ public class DataScrollerBean implements Serializable {
 
     @PostConstruct
     public void init() {
-
         gameList = new ArrayList<>();
         getGamesListWithPlatform("Xbox One");
     }
