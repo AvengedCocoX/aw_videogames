@@ -49,11 +49,11 @@
         </script>
 
         <script>
-             $(window).scroll(
+            $(window).scroll(
                     function () {
-                        if (10 > $(document).height()-($(window).scrollTop()+$(window).height())) {
-                           document.getElementById("loaded-data:data-loader").onclick();
-                        } 
+                        if (10 > $(document).height() - ($(window).scrollTop() + $(window).height())) {
+                            document.getElementById("loaded-data:data-loader").onclick();
+                        }
                     }
             );
 
@@ -85,7 +85,7 @@
                     <li class="divider"></li>
                     <li><h:link value="Configuración" style="width: 200'px"></h:link></li>
                     <li>
-                        <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('community')}"></h:commandLink>
+                        <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}"></h:commandLink>
                     </li>
 
                 </ul>
@@ -145,20 +145,18 @@
         </div>-->
 
 
-        <ul id="slide-out" class="side-nav">
-            <li><div class="userView">
-                    <div class="background">
-                        <img src="resources/images/img.jpg" style="max-height: 100%; max-width: 100%" />
-                    </div>
-                    <a href="#!user"><img class="circle" /></a>
-                    <a href="#!name"><span class="white-text name">John Doe</span></a>
-                    <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-                </div></li>
-            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-            <li><a href="#!">Second Link</a></li>
-            <li><div class="divider"></div></li>
-            <li><a class="subheader">Subheader</a></li>
-            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        <ul id="slide-out" class="side-nav" style="background-color: #e4e7e7">
+            <li>
+                <center><img src="resources/images/console4.png" style="max-height: 70%; max-width: 70%" /></center>
+            </li>
+            <li>
+                <h:outputLink rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}">
+                    <i class="material-icons">perm_identity</i><font size="5">#{sessionBean.nombre}</font>
+                </h:outputLink>
+                <h:link outcome="login.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}">
+                    <i class="material-icons left">perm_identity</i><font size="5">Iniciar sesión</font>
+                </h:link>
+            </li>
         </ul>
 
         <h:form>
