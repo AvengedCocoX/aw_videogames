@@ -41,8 +41,31 @@
                             </div>
                         </div>
                     </div>
+                    <br/>
+                    <p:separator/>
+                    <br/>
                 </h:form>
 
+                <h:form id="imgGallery">
+
+                    <p:dataTable var="img" value="#{gameInfoBean.game.gameImageCollection}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{img.url}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <br/>
+                    <p:separator/>
+                    <br/>
+
+                    <p:contentFlow value="#{gameInfoBean.game.gameImageCollection}" var="image">
+                        <p:graphicImage value="#{image.url}" styleClass="content" />
+                    </p:contentFlow>
+                                        <!--<p:galleria value="#{gameInfoBean.game.gameImageCollection}" var="img">
+                                            <p:graphicImage value="#{img.url}" />
+                                        </p:galleria>-->
+
+                </h:form>
 
             </ui:define>
 
