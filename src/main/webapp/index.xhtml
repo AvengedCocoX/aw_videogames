@@ -24,11 +24,11 @@
             $(window).scroll(
                     function () {
                         if ($(window).scrollTop() > 50) {
-                            $("#prueba").removeClass("navScroll2");
-                            $("#prueba").addClass("navScroll");
+                            $("#topNav").removeClass("navScroll2");
+                            $("#topNav").addClass("navScroll");
                         } else {
-                            $("#prueba").removeClass("navScroll");
-                            $("#prueba").addClass("navScroll2");
+                            $("#topNav").removeClass("navScroll");
+                            $("#topNav").addClass("navScroll2");
                         }
                     }
             );
@@ -74,7 +74,7 @@
         </script>
 
         <h:form>
-            <div class="navbar-fixed navScroll2" id="prueba">
+            <div class="navbar-fixed navScroll2" id="topNav">
                 <!-- Dropdown Structure -->
                 <ul id="dropdown1" class="dropdown-content">
                     <li>
@@ -160,15 +160,13 @@
         </ul>
 
         <h:form>
-            <p/>
+            <br/>
+            <br/>
             <div class="carousel">
-                <ui:repeat value="#{carouselBean.images}" var = "image" varStatus="status">
+                <ui:repeat value="#{dataScrollerBean.images}" var = "image" varStatus="status">
                     <a class="carousel-item" href="#one!"><img src="#{image}" style="position: relative;float: left;width:  200px;height: 250px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/></a>
                 </ui:repeat>
             </div>
-
-            <p/>
-
         </h:form>
 
         <!-- Lista de los juegos -->

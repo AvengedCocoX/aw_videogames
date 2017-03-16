@@ -7,14 +7,12 @@ package com.chenmonedero.aw_videogames.beans;
 
 import com.chenmonedero.aw_videogames.entities.Game;
 import com.chenmonedero.aw_videogames.sessionBeans.GameFacadeLocal;
-import com.chenmonedero.aw_videogames.sessionBeans.PlatformFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
