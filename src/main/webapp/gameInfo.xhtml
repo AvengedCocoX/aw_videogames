@@ -40,31 +40,25 @@
                                 <p><b>Texto:</b></p>#{gameInfoBean.game.textLanguage}
                             </div>
                         </div>
+
+                        <br/>
+
+                        <div class="col s12"><center><h5>Galería de imágenes</h5></center></div>
+                        <p:separator/>
+                        <p:contentFlow value="#{gameInfoBean.game.gameImageCollection}" var="image" style="border: #ffffff; border-radius: 0px">
+                            <p:graphicImage value="#{image.url}" styleClass="content" style="height: 115%; width: 115%" />
+                        </p:contentFlow>
+
+                        <br/>
+                        <br/>
+
+                        <div class="col s12"><center><h5>Trailer</h5></center></div>
+                        <p:separator/>
+                        <br/>
+                        <center>
+                            <p:media value="#{gameInfoBean.video_url}" width="600" height="400" player="windows"/>
+                        </center>
                     </div>
-                    <br/>
-                    <p:separator/>
-                    <br/>
-                </h:form>
-
-                <h:form id="imgGallery">
-
-                    <p:dataTable var="img" value="#{gameInfoBean.game.gameImageCollection}">
-                        <p:column headerText="Id">
-                            <h:outputText value="#{img.url}" />
-                        </p:column>
-                    </p:dataTable>
-
-                    <br/>
-                    <p:separator/>
-                    <br/>
-
-                    <p:contentFlow value="#{gameInfoBean.game.gameImageCollection}" var="image">
-                        <p:graphicImage value="#{image.url}" styleClass="content" />
-                    </p:contentFlow>
-                                        <!--<p:galleria value="#{gameInfoBean.game.gameImageCollection}" var="img">
-                                            <p:graphicImage value="#{img.url}" />
-                                        </p:galleria>-->
-
                 </h:form>
 
             </ui:define>

@@ -6,6 +6,7 @@
 package com.chenmonedero.aw_videogames.beans;
 
 import com.chenmonedero.aw_videogames.entities.Game;
+import com.chenmonedero.aw_videogames.entities.GameVideo;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -26,6 +27,8 @@ public class GameInfoBean implements Serializable{
     
     private Game game;
     
+    private String video_url;
+    
     //G&S
     public Game getGame() {
         return game;
@@ -34,6 +37,14 @@ public class GameInfoBean implements Serializable{
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public String getVideo_url() {
+        return video_url;
+    }
+
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
+    }
     
     
     
@@ -41,6 +52,9 @@ public class GameInfoBean implements Serializable{
     public void init() {
         //El valor del juego es el seleccionado desde dataScrollerBean
         this.game = dataScrollerBean.getGame();
+        for(GameVideo gv : game.getGameVideoCollection()){
+            video_url = gv.getUrl();
+        }
     }
     
 }

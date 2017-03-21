@@ -61,7 +61,6 @@ public class DataScrollerBean implements Serializable {
     }
     
     public List<String> getImages() {
-        System.out.println(gameListFull.size());
         images.clear();
         for(Game g:gameListFull){
             images.add(g.getProfileImage());
