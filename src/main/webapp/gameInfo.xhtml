@@ -22,6 +22,7 @@
 
 
                 <h:form id="gameInfo">
+
                     <div class="container" style="margin-top: 5%">
                         <div class="row">
                             <div class="col s12"><center><h4>#{gameInfoBean.game.title}</h4></center></div>
@@ -29,7 +30,32 @@
                             <div class="col s12"><p></p></div>
                             <div class="col s4">
                                 <p></p>
-                                <center><img src="#{gameInfoBean.game.profileImage}" style="position: relative;float: left;width:  240px;height: 290px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/></center>
+                                <center>
+                                    <img src="#{gameInfoBean.game.profileImage}" style="position: relative;float: left;width:  240px;height: 290px;background-position: 50% 50%;background-repeat:no-repeat;background-size:cover;"/>
+                                </center>
+                                <h:form id="valoration">
+                                    <p:growl id="messages" showDetail="true" />
+                                    
+                                    <h:outputText value="___________________________" style="color: #ffffff" />
+                                    <br/>
+                                    <h:outputText value="Valoración de los usuarios:" />
+                                    <p:rating value="#{gameInfoBean.valoration}" readonly="true" stars="10" />
+
+                                    <h:outputText value="___________________________" style="color: #ffffff" />
+                                    <br/>
+                                    <h:outputText value="Tu valoración:" />
+                                    <p:rating value="#{gameInfoBean.score}" stars="10"></p:rating>
+
+                                    <h:outputText value="___________________________" style="color: #ffffff" />
+                                    <br/>
+                                    <h:outputText value="Comentarios" />
+                                    <h:inputTextarea value="#{gameInfoBean.comment}" />
+
+                                    <h:outputText value="___________________________" style="color: #ffffff" />
+                                    <br/>
+                                    <h:commandButton class="btn waves-effect waves-ligh" value="Enviar valoración" action="#{gameInfoBean.rate()}">
+                                    </h:commandButton>
+                                </h:form>
                             </div>
                             <div class="col s8">
                                 <p><b>Descripción:</b></p>#{gameInfoBean.game.description}
@@ -56,13 +82,12 @@
                         <p:separator/>
                         <br/>
                         <center>
-                            <p:media value="#{gameInfoBean.video_url}" width="600" height="400" player="windows"/>
+                            <iframe src="#{gameInfoBean.video_url}" width="560" height="315" frameborder="0" allowfullscreen="true"></iframe>
                         </center>
                     </div>
                 </h:form>
 
             </ui:define>
-
         </ui:composition>
 
 
