@@ -28,13 +28,6 @@ public class RegistrarUsuarioBean implements Serializable {
     private User2group group;
     private String passwordConfirm;
 
-    @PostConstruct
-    public void init() {
-        user = new User();
-        group = new User2group();
-
-    }
-
     //G&S
     public String getPasswordConfirm() {
         return passwordConfirm;
@@ -58,6 +51,14 @@ public class RegistrarUsuarioBean implements Serializable {
 
     public void setGroup(User2group group) {
         this.group = group;
+    }
+    
+    
+    @PostConstruct
+    public void init() {
+        user = new User();
+        group = new User2group();
+
     }
 
     //Registrar usuario

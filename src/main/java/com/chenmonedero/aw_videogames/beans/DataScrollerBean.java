@@ -38,7 +38,7 @@ public class DataScrollerBean implements Serializable {
     private final int incrementSize = 2;
     
     //The initial size of game list
-    private final int gameListInitSize = 0;
+    private final int gameListInitSize = 1;
     
     private int sizeGamesList = 0;
     
