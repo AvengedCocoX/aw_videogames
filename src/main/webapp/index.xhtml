@@ -111,12 +111,14 @@
                                 <ui:repeat value="#{menuNavPlataformBean.names}" var = "platform" varStatus="status">
                                     <ui:fragment rendered ="#{status.index eq 0}">
                                         <li class="tab "><h:commandLink class="platformStatusList active" value ="#{platform}" action="#{dataScrollerBean.changePlatform(platform)}" >
-                                                <f:ajax render="loaded-data"/>
+                                                <f:ajax render=":loaded-data"/>
+                                                <f:ajax render=":imagesScroll" onevent="function(data) { $('.carousel').carousel();}"/>
                                             </h:commandLink></li>
                                     </ui:fragment>
                                     <ui:fragment rendered ="#{status.index ne 0}">
                                         <li class="tab "><h:commandLink class="platformStatusList" value ="#{platform}" action="#{dataScrollerBean.changePlatform(platform)}" >
-                                                <f:ajax render="loaded-data"/>
+                                                <f:ajax render=":loaded-data"/>
+                                                <f:ajax render=":imagesScroll" onevent="function(data) { $('.carousel').carousel();}"/>
                                             </h:commandLink></li>
                                     </ui:fragment>
                                 </ui:repeat>
@@ -159,7 +161,7 @@
             </li>
         </ul>
 
-        <h:form>
+        <h:form id = "imagesScroll">
             <br/>
             <br/>
             <div class="carousel">
