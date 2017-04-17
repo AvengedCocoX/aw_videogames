@@ -7,6 +7,21 @@ and open the template in the editor.
     Created on : 28-feb-2017, 23:06:52
     Author     : an
 */
+#upload-button{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background: url('../images/uploadImage.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 
-
-
+}
+#upload-button input[type="file"]{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+#upload-button:active{
+    width: 102px;
+    height: 102px;
+}

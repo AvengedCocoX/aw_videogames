@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <h:outputStylesheet name="./css/materialize.css"/>
+
+        <title>Subir Juego</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/vg.css"/>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="./WEB-INF/templates/userTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form enctype="multipart/form-data">
+                    <div id="upload-button">
+                        <h:inputFile value="#{uploadGames.image}">
+                            <f:passThroughAttribute name="accept" value="image/png|image/jpe?g"/>
+                            <f:ajax event="change" listener="#{uploadGames.doUpload()}" execute="@form" render="@form"/>
+                        </h:inputFile>
+                    </div>
+                    <h:panelGroup rendered="#{uploadGames.uploaded}" layout="block" style="text-align: center">
+                        
+                        <img src="Image.png?path=#{uploadGames.path}" height="200" width="200" style="border: 3px solid #DDD;"/>
+                    </h:panelGroup>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
