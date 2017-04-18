@@ -5,10 +5,13 @@
  */
 package com.chenmonedero.aw_videogames.sessionBeans;
 
+import com.chenmonedero.aw_videogames.entities.Game;
 import com.chenmonedero.aw_videogames.entities.Platform;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +29,16 @@ public class PlatformFacade extends AbstractFacade<Platform> implements Platform
 
     public PlatformFacade() {
         super(Platform.class);
+    }
+    
+    @Override
+    public Platform findPlatformByName(String name){
+        List<Platform> platform = null;
+        Query query = em.createNamedQuery("Platform.findByName");
+        query.setParameter("name", name);
+        
+        platform = (List<Platform>) query.getResultList();
+        return platform.get(0);
     }
     
 }

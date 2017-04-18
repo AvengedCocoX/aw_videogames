@@ -68,8 +68,8 @@
                                 </div>
                                 
                                 <div class="card-action">
-                                    <p:commandButton class="btn waves-effect waves-ligh" disabled="#{(registrarUsuarioBean.checkInputField())}" id = "register" value="Registrarse" icon="fa fa-angellist" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}" style="float: left"></p:commandButton>
-                                    <p:commandButton class="btn waves-effect waves-ligh" value="Limpiar" icon="fa fa-magic" type="reset" style="float: right"/>
+                                    <p:commandButton styleClass="btn waves-effect waves-ligh" disabled="#{(registrarUsuarioBean.checkInputField())}" id = "register" value="Registrarse" icon="fa fa-angellist" update="mensajegrowl, name, username, password, confirm_password" actionListener="#{registrarUsuarioBean.registrar()}" style="float: left"></p:commandButton>
+                                    <p:commandButton styleClass="btn waves-effect waves-ligh" value="Limpiar" icon="fa fa-magic" type="reset" style="float: right"/>
                                 </div>
                             </div>
                             <div style="visibility: hidden">#{registrarUsuarioBean.group.groupname="user"}</div>

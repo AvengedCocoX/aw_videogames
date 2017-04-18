@@ -30,4 +30,5 @@ public interface PlatformFacadeLocal {
 
     int count();
     
+    public Platform findPlatformByName(String name);
 }

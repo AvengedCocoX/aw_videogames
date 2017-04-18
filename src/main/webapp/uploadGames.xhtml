@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <h:outputStylesheet name="./css/materialize.css"/>
 
-        <title>Subir Juego</title>
+        <title>Nuevo Juego</title>
         <link rel="stylesheet" type="text/css" href="resources/css/vg.css"/>
     </h:head>
 
@@ -19,18 +19,133 @@
         <ui:composition template="./WEB-INF/templates/userTemplate.xhtml">
 
             <ui:define name="content">
+
                 <h:form enctype="multipart/form-data">
-                    <div id="upload-button">
-                        <h:inputFile value="#{uploadGames.image}">
-                            <f:passThroughAttribute name="accept" value="image/png|image/jpe?g"/>
-                            <f:ajax event="change" listener="#{uploadGames.doUpload()}" execute="@form" render="@form"/>
-                        </h:inputFile>
+
+                    <p:growl id="messages" showDetail="true" />
+
+                    <div style="margin-top: 10%; margin-bottom: 6%; margin-left: 10%">
+                        <div class="card horizontal" style="width: 90%">
+                            <div class="card-stacked">
+                                <h5 class="header" style="margin: auto; margin-top: 30px; color: #999999; font-family: 'Lato', sans-serif; font-size: 30px; font-weight: 300; line-height: 58px; ">Nuevo Juego</h5>
+                                <div class="card-content">
+                                    <div class="input-field col s6">
+                                        <p:inputText id="title" value="#{uploadGames.title}" required="true"/>
+                                        <label for="title">Título</label>
+                                    </div>
+
+
+
+                                    <div class="input-field col s6">
+
+                                    </div>
+
+                                    <br/>
+                                    <p:outputLabel for="category" value="Categoría:" />
+                                    <p:selectOneRadio id="category" value="#{uploadGames.selectedCategory}" required="true">
+                                        <f:selectItem itemLabel="Acción" itemValue="action" />
+                                        <f:selectItem itemLabel="Aventura" itemValue="adventure" />
+                                        <f:selectItem itemLabel="Rol" itemValue="role-playing" />
+                                        <f:selectItem itemLabel="Simulación" itemValue="simulation" />
+                                        <f:selectItem itemLabel="Estrategía" itemValue="strategy" />
+                                        <f:selectItem itemLabel="Deporte" itemValue="sports" />
+                                        <f:selectItem itemLabel="IDLE" itemValue="idle" />
+                                    </p:selectOneRadio>
+
+
+                                    <div class="input-field col s6">
+                                        <p style="color: #999999"> Descripción: </p>
+                                        <p:inputTextarea rows="8" cols="30" value="#{uploadGames.description}"/>
+                                    </div>
+
+                                    <br/>
+                                    <p:outputLabel for="platform_name" value="Plataforma:" />
+                                    <p:selectOneRadio id="platform_name" value="#{uploadGames.platform_name}" required="true">
+                                        <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                                        <f:selectItem itemLabel="Xbox 360" itemValue="Xbox 360" />
+                                        <f:selectItem itemLabel="Switch" itemValue="Switch" />
+                                        <f:selectItem itemLabel="Play Station 3" itemValue="Play Station 3" />
+                                        <f:selectItem itemLabel="Play Station 4" itemValue="Play Station 4" />
+                                        <f:selectItem itemLabel="PC" itemValue="PC" />
+                                        <f:selectItem itemLabel="Mac" itemValue="Mac" />
+                                        <f:selectItem itemLabel="Wii" itemValue="Wii" />
+                                        <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                                        <f:selectItem itemLabel="iOS" itemValue="iOS" />
+                                        <f:selectItem itemLabel="Android" itemValue="Android" />
+                                    </p:selectOneRadio>
+
+
+                                    <div class="input-field col s6">
+                                        <p:inputText id="developer" value="#{uploadGames.developer}" required="true"/>
+                                        <label for="developer">Desarrollado por</label>
+                                    </div>
+
+                                    <h:panelGrid columns="6" style="margin-bottom:10px" cellpadding="5">
+                                        <p style="color: #999999"> Fecha de lanzamiento: Año</p>
+                                        <p:inputText value="#{uploadGames.year}" required="true"/>
+                                        <p style="color: #999999"> Mes </p>
+                                        <p:inputText value="#{uploadGames.month}" required="true"/>
+                                        <p style="color: #999999"> Día </p>
+                                        <p:inputText value="#{uploadGames.day}" required="true"/>
+                                    </h:panelGrid>
+                                    
+                                    <br/>
+                                    <p:outputLabel for="voice_language" value="Idioma:" />
+                                    <p:selectOneRadio id="voice_language" value="#{uploadGames.voice_language}">
+                                        <f:selectItem itemLabel="Inglés" itemValue="en" />
+                                        <f:selectItem itemLabel="Español" itemValue="es" />
+                                        <f:selectItem itemLabel="Francés" itemValue="fr" />
+                                        <f:selectItem itemLabel="Chino" itemValue="ch" />
+                                        <f:selectItem itemLabel="Alemán" itemValue="de" />
+                                        <f:selectItem itemLabel="Portugués" itemValue="pt" />
+                                        <f:selectItem itemLabel="Italiano" itemValue="it" />
+                                        <f:selectItem itemLabel="Polaco" itemValue="pl" />
+                                        <f:selectItem itemLabel="Japonés" itemValue="jp" />
+                                    </p:selectOneRadio>
+                                    
+                                    <br/>
+                                    <p:outputLabel for="text_language" value="Texto:" />
+                                    <p:selectOneRadio id="text_language" value="#{uploadGames.text_language}">
+                                        <f:selectItem itemLabel="Inglés" itemValue="en" />
+                                        <f:selectItem itemLabel="Español" itemValue="es" />
+                                        <f:selectItem itemLabel="Francés" itemValue="fr" />
+                                        <f:selectItem itemLabel="Chino" itemValue="ch" />
+                                        <f:selectItem itemLabel="Alemán" itemValue="de" />
+                                        <f:selectItem itemLabel="Portugués" itemValue="pt" />
+                                        <f:selectItem itemLabel="Italiano" itemValue="it" />
+                                        <f:selectItem itemLabel="Polaco" itemValue="pl" />
+                                        <f:selectItem itemLabel="Japonés" itemValue="jp" />
+                                    </p:selectOneRadio>
+                                    
+                                    
+                                    <br/>
+                                    <p:outputLabel for="players" value="Modo:" />
+                                    <p:selectOneRadio id="players" value="#{uploadGames.players}" required="true">
+                                        <f:selectItem itemLabel="Un jugador" itemValue="single" />
+                                        <f:selectItem itemLabel="Multijugador" itemValue="multiplayer" />
+                                    </p:selectOneRadio>
+
+
+
+                                    <div class="input-field col s6">
+                                        <p style="color: #999999"> Imagen de portada: </p>
+                                        <p:fileUpload value="#{uploadGames.image}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
+                                    </div>
+
+
+                                    <div class="input-field col s6" style="margin-top: 50px">
+                                        <p:commandButton value="Submit" ajax="false" actionListener="#{uploadGames.upload()}"/>
+                                    </div>
+
+
+                                </div>
+                            </div>  
+                        </div>     
                     </div>
-                    <h:panelGroup rendered="#{uploadGames.uploaded}" layout="block" style="text-align: center">
-                        
-                        <img src="Image.png?path=#{uploadGames.path}" height="200" width="200" style="border: 3px solid #DDD;"/>
-                    </h:panelGroup>
-                </h:form>
+
+
+
+                </h:form> 
 
             </ui:define>
 
