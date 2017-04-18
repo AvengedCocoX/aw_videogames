@@ -118,21 +118,23 @@
         </ui:insert>
 
 
-        <ul id="slide-out" class="side-nav">
-            <li><div class="userView">
-                    <div class="background">
-                        <img src="resources/images/img.jpg" style="max-height: 100%; max-width: 100%" />
-                    </div>
-                    <a href="#!user"><img class="circle" /></a>
-                    <a href="#!name"><span class="white-text name">John Doe</span></a>
-                    <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-                </div></li>
-            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-            <li><a href="#!">Second Link</a></li>
-            <li><div class="divider"></div></li>
-            <li><a class="subheader">Subheader</a></li>
-            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-        </ul>
+        <!-- Menu lateral -->
+        <h:form>
+            <ul id="slide-out" class="side-nav" style="background-color: #e4e7e7">
+                <li>
+                    <center><img src="resources/images/console4.png" style="max-height: 70%; max-width: 70%" /></center>
+                </li>
+                <li>
+                    <h:link outcome="login.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}">
+                        <i class="material-icons left">perm_identity</i><font size="5">Iniciar sesión</font>
+                    </h:link>
+                    <h:outputLink rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}">
+                        <i class="material-icons">perm_identity</i><font size="5">#{sessionBean.nombre}</font>
+                    </h:outputLink>
+                    <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}"></h:commandLink>
+                </li>
+            </ul>
+        </h:form>
 
 
 
@@ -148,24 +150,17 @@
                 <div class="container">
                     <div class="row">
                         <div class="col l6 s12">
-                            <h5 class="white-text">Footer Content</h5>
-                            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                            <h5 class="white-text">AA Videogames</h5>
+                            <p class="grey-text text-lighten-4">Tu red social de videojuegos en donde podrás compartir las valoraciones de tu videojuegos para todas las consolas!</p>
                         </div>
                         <div class="col l4 offset-l2 s12">
-                            <h5 class="white-text">Links</h5>
-                            <ul>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                            </ul>
+
                         </div>
                     </div>
                 </div>
                 <div class="footer-copyright">
                     <div class="container">
-                        © 2017 Aplicaciones Web
-                        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                        <a class="grey-text right">© 2017 Aplicaciones Web</a>
                     </div>
                 </div>
             </footer>
