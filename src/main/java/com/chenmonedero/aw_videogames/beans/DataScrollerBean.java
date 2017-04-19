@@ -48,6 +48,8 @@ public class DataScrollerBean implements Serializable {
 
     //Asignar
     private Game game;
+    
+    private String platform;
 
 
 
@@ -99,7 +101,8 @@ public class DataScrollerBean implements Serializable {
     @PostConstruct
     public void init() {
         gameList = new ArrayList<>();
-        getGamesListWithPlatform("Xbox One");
+        platform = "Xbox One";
+        getGamesListWithPlatform(platform);
     }
 
     public List<Game> loadData() {
@@ -134,8 +137,17 @@ public class DataScrollerBean implements Serializable {
     //Change the loaded list of platform
     public void changePlatform(String platform){
         i=0;
+        this.platform = platform;
         sizeGamesList = gameListInitSize;
         gameList.clear();
         getGamesListWithPlatform(platform);
+    }
+    
+    public void searchGame(String title){
+        i=0;
+        gameList.clear();
+        gameListFull = gameEJB.getGameByPlatformAndTitle(platform,"%"+title+"%");
+        countTotal = gameListFull.size();
+        sizeGamesList = 0;
     }
 }

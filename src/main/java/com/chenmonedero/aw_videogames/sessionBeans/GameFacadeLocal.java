@@ -32,4 +32,5 @@ public interface GameFacadeLocal {
     
     public List<Game> getGameByPlatform(String platform);
     
+    public List<Game> getGameByPlatformAndTitle(String platform, String title);
 }
