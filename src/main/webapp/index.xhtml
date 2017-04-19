@@ -159,7 +159,12 @@
                     <h:outputLink rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}">
                         <i class="material-icons">perm_identity</i><font size="5">#{sessionBean.nombre}</font>
                     </h:outputLink>
-                    <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}"></h:commandLink>
+                    <h:link outcome="uploadGames.xhtml" rendered="#{request.isUserInRole('admin')}">
+                        <i class="material-icons left">library_add</i>Subir un juego
+                    </h:link>
+                    <h:commandLink value="Cerrar sesión" actionListener="#{sessionBean.logout()}" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin')}">
+                        <i class="material-icons left">power_settings_new</i>
+                    </h:commandLink>
                 </li>
             </ul>
         </h:form>

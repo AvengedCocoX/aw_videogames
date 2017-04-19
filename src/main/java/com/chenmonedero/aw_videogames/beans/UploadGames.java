@@ -197,24 +197,17 @@ public class UploadGames implements Serializable {
         game.setVoiceLanguage(voice_language);
         game.setTextLanguage(text_language);
         game.setPlayers(players);
-        System.out.println("***********************************************************" + selectedCategory);
-
+        
+        /*System.out.println("***********************************************************" + selectedCategory);
         System.out.println("***********************************************************" + description);
-
         System.out.println("***********************************************************" + developer);
-
         System.out.println("***********************************************************" + title);
-
         System.out.println("***********************************************************" + pfEJB.findPlatformByName(platform_name).getName());
-
         System.out.println("***********************************************************" + players);
-
         System.out.println("***********************************************************" + path);
-
         System.out.println("***********************************************************" + text_language);
-
         System.out.println("***********************************************************" + voice_language);
-        System.out.println("***********************************************************" + getSqlDate());
+        System.out.println("***********************************************************" + getSqlDate());*/
 
         gameEJB.create(game);
         toIndex();
@@ -242,7 +235,8 @@ public class UploadGames implements Serializable {
             path = "game_images/profile_image/" + p.getFileName().toString();
 
             InputStream in = image.getInputstream();
-            File f = new File("C:/Users/an/Documents/NetBeansProjects/aw_videogames/src/main/webapp/" + path);
+            File f = new File("/Users/AvengedCocoX/NetBeansProjects/aw_videogames/src/main/webapp/" + path);
+            //File f = new File("C:/Users/an/Documents/NetBeansProjects/aw_videogames/src/main/webapp/" + path);
             f.createNewFile();
             FileOutputStream out = new FileOutputStream(f);
 

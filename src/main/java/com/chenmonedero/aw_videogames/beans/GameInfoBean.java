@@ -9,7 +9,6 @@ import com.chenmonedero.aw_videogames.entities.Game;
 import com.chenmonedero.aw_videogames.entities.GameVideo;
 import com.chenmonedero.aw_videogames.entities.User;
 import com.chenmonedero.aw_videogames.entities.Valoration;
-import com.chenmonedero.aw_videogames.sessionBeans.GameFacadeLocal;
 import com.chenmonedero.aw_videogames.sessionBeans.UserFacadeLocal;
 import com.chenmonedero.aw_videogames.sessionBeans.ValorationFacadeLocal;
 import java.io.Serializable;
@@ -111,6 +110,10 @@ public class GameInfoBean implements Serializable {
 
             valoration_count++;
         }
+        
+        if(valoration_count == 0){
+            valoration_count = 1;
+        }
         valoration = valoration / valoration_count;
 
         valorationObj = new Valoration();
@@ -148,7 +151,7 @@ public class GameInfoBean implements Serializable {
         valorationEJB.create(valorationObj);
 
         //Mensaje de exito
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Evento modificado"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Valoración enviada"));
     }
 
     public void onrate(RateEvent rateEvent) {
