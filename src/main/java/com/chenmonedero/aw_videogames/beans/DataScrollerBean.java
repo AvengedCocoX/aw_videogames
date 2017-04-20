@@ -175,10 +175,5 @@ public class DataScrollerBean implements Serializable {
                 changePlatform(platform);
             }
         }
-        catch(NullPointerException e){
-            changePlatform(platform);
-            System.err.println(e);
-        }
-
     }
 }
