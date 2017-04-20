@@ -184,4 +184,13 @@ public class DataScrollerBean implements Serializable {
             //System.err.println(e);
         }
     }
+    
+    public String dataDescriptionShow(String description){
+        String result = description;
+        if(description.length() > 500){
+            result = description.substring(0, 490);
+            result = result + " ...";
+        }
+        return result;
+    }
 }
