@@ -29,29 +29,38 @@ public class DataScrollerBean implements Serializable {
     private List<Game> gameListFull;
 
     private List<Game> gameList;
-    
+
     private List<String> images = new ArrayList<>();
 
     private int i;
-    
+
     //The size that is be increment each time data is loaded
     private final int incrementSize = 2;
-    
+
     //The initial size of game list
     private final int gameListInitSize = 1;
-    
+
     private int sizeGamesList = 0;
-    
 
     private int countTotal, countLoaded;
 
+    private boolean searched;
 
     //Asignar
     private Game game;
-    
+
     private String platform;
 
+    private String title;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        searchGame(title);
+        this.title = title;
+    }
 
     //G&S
     public Game getGame() {
@@ -61,10 +70,10 @@ public class DataScrollerBean implements Serializable {
     public void setGame(Game game) {
         this.game = game;
     }
-    
+
     public List<String> getImages() {
         images.clear();
-        for(Game g:gameListFull){
+        for (Game g : gameListFull) {
             images.add(g.getProfileImage());
         }
         return images;
@@ -73,7 +82,7 @@ public class DataScrollerBean implements Serializable {
     public void setImages(List<String> images) {
         this.images = images;
     }
-    
+
     public List<Game> getGameList() {
         return gameList;
     }
@@ -98,15 +107,24 @@ public class DataScrollerBean implements Serializable {
         this.countLoaded = countLoaded;
     }
 
+    public boolean isSearched() {
+        return searched;
+    }
+
+    public void setSearched(boolean searched) {
+        this.searched = searched;
+    }
+
     @PostConstruct
     public void init() {
+        title = "";
         gameList = new ArrayList<>();
         platform = "Xbox One";
         getGamesListWithPlatform(platform);
+        searched = false;
     }
 
     public List<Game> loadData() {
-
         for (i = i; i < sizeGamesList; i++) {
             gameList.add(gameListFull.get(i));
         }
@@ -133,21 +151,32 @@ public class DataScrollerBean implements Serializable {
     public void asignar(Game game) {
         this.game = game;
     }
-    
+
     //Change the loaded list of platform
-    public void changePlatform(String platform){
-        i=0;
+    public void changePlatform(String platform) {
+        searched = false;
+        i = 0;
         this.platform = platform;
         sizeGamesList = gameListInitSize;
         gameList.clear();
         getGamesListWithPlatform(platform);
+        
     }
-    
-    public void searchGame(String title){
-        i=0;
-        gameList.clear();
-        gameListFull = gameEJB.getGameByPlatformAndTitle(platform,"%"+title+"%");
-        countTotal = gameListFull.size();
-        sizeGamesList = 0;
+
+    public void searchGame(String title) {
+        if (!title.equals("")) {
+            i = 0;
+            gameList.clear();
+            gameListFull = gameEJB.getGameByPlatformAndTitle(platform, "%" + title + "%");
+            countTotal = gameListFull.size();
+            if (countTotal != 0) {
+                sizeGamesList = gameListInitSize;
+            } else {
+                sizeGamesList = 0;
+            }
+            searched = true;
+        } else {
+            changePlatform(platform);
+        }
     }
 }

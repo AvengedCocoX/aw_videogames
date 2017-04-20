@@ -77,7 +77,6 @@ public class GameInfoBean implements Serializable {
     private boolean userCommented;
 
     public int getValoration() {
-        System.out.println("*************************"+valoration);
         return valoration;
     }
 
@@ -86,7 +85,7 @@ public class GameInfoBean implements Serializable {
     }
 
     public int getScore() {
-        return score;
+        return 0;
     }
 
     public void setScore(int score) {
@@ -94,7 +93,7 @@ public class GameInfoBean implements Serializable {
     }
 
     public String getComment() {
-        return comment;
+        return "";
     }
 
     public void setComment(String comment) {
