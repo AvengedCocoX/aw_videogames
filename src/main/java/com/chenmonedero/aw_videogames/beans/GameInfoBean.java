@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -108,14 +110,7 @@ public class GameInfoBean implements Serializable {
         this.userCommented = userCommented;
     }
 
-    public boolean isUserCommented() {
-        return userCommented;
-    }
 
-    public void setUserCommented(boolean userCommented) {
-        this.userCommented = userCommented;
-    }
-    
     //Sección comentarios
     private List<Valoration> valorationList;
 
