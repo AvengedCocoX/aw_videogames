@@ -222,10 +222,6 @@ public class GameInfoBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gracias!", "Valoración enviada"));
     }
 
-    public void getValorationAndComments() {
-
-    }
-
     public void onrate(RateEvent rateEvent) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rate Event", "You rated:" + ((Integer) rateEvent.getRating()));
         FacesContext.getCurrentInstance().addMessage(null, message);

@@ -101,22 +101,18 @@
                         <p:separator/>
                         <h:form id="commentForm">
                             <ui:repeat value="#{gameInfoBean.valorationList}" var="valoration">
-
                                 <div class="card horizontal">
-                                    <div class="card-image">
-                                        <h:outputText value="#{valoration.username.username}"/>
+                                    <div class="card-image" style="margin-left: 1%; margin-top: 1%; margin-bottom: 1%">
+                                        <img src="resources/images/mrx.png" style="width: 64px" />
+                                        <h:outputText value="#{valoration.username.username}" />
                                         <p:rating value="#{valoration.score.intValue()}" readonly="true" stars="10"/>
                                     </div>
                                     <div class="card-stacked">
                                         <div class="card-content">
                                             <h:outputText value="#{valoration.comment}"/>
                                         </div>
-                                        <div class="card-action">
-                                            <a href="#">This is a link</a>
-                                        </div>
                                     </div>
                                 </div>
-
                             </ui:repeat>
                         </h:form>
                     </div>
