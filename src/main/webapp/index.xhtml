@@ -94,8 +94,15 @@
                     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
                     <div class="nav-wrapper grey darken-4" >
 
-                        <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index"/>
+                        <h:link value="VideoGames" class="brand-logo" style="padding-left: 10px" outcome="index.xhtml"/>
+
                         <ul class="right hide-on-med-and-down">
+                            <li><i class="material-icons right">search</i></li>
+                            <li>
+                                <h:inputText style="background-color: #dddddd; height: auto; border-radius: 5px; padding: 2px" value="#{dataScrollerBean.title}">
+                                    <f:ajax render=":loaded-data"/>
+                                </h:inputText>
+                            </li>
                             <li><h:link value="Registrarse" outcome="registrarUsuario.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">assignment_ind</i></h:link></li>
                             <li><h:link value="Iniciar sesión" outcome="login.xhtml" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('admin')}"><i class="material-icons left">perm_identity</i></h:link></li>
                             <li>
@@ -105,6 +112,7 @@
                             </li> 
                         </ul>
                     </div>
+                    <h:form rendered="#{not dataScrollerBean.searched}">
                     <div class="nav-content grey darken-1">
                         <ul class="tabs tabs-transparent">
                             <h:form>
@@ -133,6 +141,7 @@
                             <li class="tab "><a class="optionStatusList" href="#!">Imagenes</a></li>
                         </ul>
                     </div>
+                    </h:form>
 
                 </nav>
             </div>
@@ -170,7 +179,7 @@
         </h:form>
 
 
-        <h:form id ="imagesScroll" style="margin-top: 10%">
+        <h:form rendered="#{not dataScrollerBean.searched}" id ="imagesScroll" style="margin-top: 10%">
             <div class="col s12"><center><h4>Todos los juegos</h4></center>
                 <p:separator style="width: 60%"/>
 

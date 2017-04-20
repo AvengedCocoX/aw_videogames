@@ -41,4 +41,16 @@ public class GameFacade extends AbstractFacade<Game> implements GameFacadeLocal 
                 
         return gamesOfPlatform;
     }
+    
+    @Override
+    public List<Game> getGameByPlatformAndTitle(String platform, String title){
+        List<Game> gamesOfPlatform = null;
+        Query query = em.createNamedQuery("Game.findByPlatformAndTitle");
+        query.setParameter("platformName", platform);
+        query.setParameter("title", title);
+        
+        gamesOfPlatform = (List<Game>) query.getResultList();
+                
+        return gamesOfPlatform;
+    }
 }

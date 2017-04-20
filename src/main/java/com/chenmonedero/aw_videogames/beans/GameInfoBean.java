@@ -9,6 +9,7 @@ import com.chenmonedero.aw_videogames.entities.Game;
 import com.chenmonedero.aw_videogames.entities.GameVideo;
 import com.chenmonedero.aw_videogames.entities.User;
 import com.chenmonedero.aw_videogames.entities.Valoration;
+import com.chenmonedero.aw_videogames.sessionBeans.GameFacadeLocal;
 import com.chenmonedero.aw_videogames.sessionBeans.UserFacadeLocal;
 import com.chenmonedero.aw_videogames.sessionBeans.ValorationFacadeLocal;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -44,6 +46,8 @@ public class GameInfoBean implements Serializable {
     private ValorationFacadeLocal valorationEJB;
     @EJB
     private UserFacadeLocal userEJB;
+    @EJB
+    private GameFacadeLocal gameEJB;
 
     private Game game;
 
@@ -72,6 +76,7 @@ public class GameInfoBean implements Serializable {
     private String comment;
     private Valoration valorationObj;
     private User user;
+    private boolean userCommented;
 
     public int getValoration() {
         return valoration;
@@ -82,7 +87,7 @@ public class GameInfoBean implements Serializable {
     }
 
     public int getScore() {
-        return score;
+        return 0;
     }
 
     public void setScore(int score) {
@@ -90,34 +95,32 @@ public class GameInfoBean implements Serializable {
     }
 
     public String getComment() {
-        return comment;
+        return "";
     }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public boolean isUserCommented() {
+        return userCommented;
+    }
+
+    public void setUserCommented(boolean userCommented) {
+        this.userCommented = userCommented;
+    }
     
     //Sección comentarios
-    private List<Valoration> valorationListFull;
-    private List<Valoration> valorationListFinal;
+    private List<Valoration> valorationList;
 
-    //G&S
-    public List<Valoration> getValorationListFull() {
-        return valorationListFull;
+    public List<Valoration> getValorationList() {
+        return valorationList;
     }
 
-    public void setValorationListFull(List<Valoration> valorationListFull) {
-        this.valorationListFull = valorationListFull;
+    public void setValorationList(List<Valoration> valorationList) {
+        this.valorationList = valorationList;
     }
-
-    public List<Valoration> getValorationListFinal() {
-        return valorationListFinal;
-    }
-
-    public void setValorationListFinal(List<Valoration> valorationListFinal) {
-        this.valorationListFinal = valorationListFinal;
-    }
-
+    
     
 
     @PostConstruct
@@ -135,21 +138,28 @@ public class GameInfoBean implements Serializable {
             valoration = (int) (valoration + v.getScore());
             valoration_count++;
         }
+
         
         //Valoration list
-        valorationListFull = (List<Valoration>) game.getValorationCollection();
-        valorationListFinal = new ArrayList<>();
-        for (Valoration v : valorationListFull){
-           
-        }
+        valorationList = (List<Valoration>) game.getValorationCollection();
+        
 
         if (valoration_count == 0) {
             valoration_count = 1;
         }
         valoration = valoration / valoration_count;
+    }
 
-        valorationObj = new Valoration();
-        user = new User();
+    private boolean userCommented(Collection<Valoration> valorations, User user) {
+        boolean b = false;
+        ArrayList<Valoration> vs = new ArrayList<>();
+        vs.addAll(valorations);
+        for (Valoration v : vs) {
+            if (v.getUsername().getId() == user.getId()) {
+                b = true;
+            }
+        }
+        return b;
     }
 
     public void rate() throws ParseException {
@@ -180,6 +190,11 @@ public class GameInfoBean implements Serializable {
 
         valorationEJB.create(valorationObj);
 
+        game.getValorationCollection().add(valorationEJB.find(valorationObj.getIdValoration()));
+
+        gameEJB.edit(game);
+        updateValoration();
+        updateUserCommented();
         //Mensaje de exito
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gracias!", "Valoración enviada"));
     }
@@ -191,5 +206,25 @@ public class GameInfoBean implements Serializable {
     public void onrate(RateEvent rateEvent) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rate Event", "You rated:" + ((Integer) rateEvent.getRating()));
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public void removeRate(){
+        Valoration valoration = null;
+        Collection valorations = game.getValorationCollection();
+        ArrayList<Valoration> vs = new ArrayList<>();
+        vs.addAll(valorations);
+        for (Valoration v : vs) {
+            if (v.getUsername().getId() == user.getId()) {
+                valoration = v;
+            }
+        }
+        valorationEJB.remove(valoration);
+        game.getValorationCollection().remove(valoration);
+        gameEJB.edit(game);
+        updateValoration();
+        updateUserCommented();
+        //Mensaje de exito
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Valoración eliminada"));
+        
     }
 }

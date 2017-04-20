@@ -88,7 +88,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getTitle() {
-        return title;
+        return null;
     }
 
     public void setTitle(String title) {
@@ -96,7 +96,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getSelectedCategory() {
-        return selectedCategory;
+        return null;
     }
 
     public void setSelectedCategory(String selectedCategory) {
@@ -104,7 +104,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return "";
     }
 
     public void setDescription(String description) {
@@ -112,7 +112,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getPlatform_name() {
-        return platform_name;
+        return null;
     }
 
     public void setPlatform_name(String platform_name) {
@@ -120,7 +120,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getDeveloper() {
-        return developer;
+        return null;
     }
 
     public void setDeveloper(String developer) {
@@ -128,7 +128,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getVoice_language() {
-        return voice_language;
+        return null;
     }
 
     public void setVoice_language(String voice_language) {
@@ -136,7 +136,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getText_language() {
-        return text_language;
+        return null;
     }
 
     public void setText_language(String text_language) {
@@ -144,7 +144,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getPlayers() {
-        return players;
+        return null;
     }
 
     public void setPlayers(String players) {
@@ -160,7 +160,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getYear() {
-        return year;
+        return null;
     }
 
     public void setYear(String year) {
@@ -168,7 +168,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getMonth() {
-        return month;
+        return null;
     }
 
     public void setMonth(String month) {
@@ -176,7 +176,7 @@ public class UploadGames implements Serializable {
     }
 
     public String getDay() {
-        return day;
+        return null;
     }
 
     public void setDay(String day) {

@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Game.findByVoiceLanguage", query = "SELECT g FROM Game g WHERE g.voiceLanguage = :voiceLanguage"),
     @NamedQuery(name = "Game.findByTextLanguage", query = "SELECT g FROM Game g WHERE g.textLanguage = :textLanguage"),
     @NamedQuery(name = "Game.findByPlayers", query = "SELECT g FROM Game g WHERE g.players = :players"),
+    @NamedQuery(name = "Game.findByPlatformAndTitle", query = "SELECT g FROM Game g WHERE g.platformName.name = :platformName AND g.title LIKE :title"),
     @NamedQuery(name = "Game.findByPlatform", query = "SELECT g FROM Game g WHERE g.platformName.name = :platformName")})
 public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
