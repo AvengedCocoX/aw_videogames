@@ -164,7 +164,7 @@ public class DataScrollerBean implements Serializable {
     }
 
     public void searchGame(String title) {
-        if (!title.equals("")) {
+        if (!title.equals("") && title != null) {
             i = 0;
             gameList.clear();
             gameListFull = gameEJB.getGameByPlatformAndTitle(platform, "%" + title + "%");
