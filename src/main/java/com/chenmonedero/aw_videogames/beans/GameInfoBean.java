@@ -16,8 +16,6 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -109,6 +107,14 @@ public class GameInfoBean implements Serializable {
     public void setUserCommented(boolean userCommented) {
         this.userCommented = userCommented;
     }
+
+    public boolean isUserCommented() {
+        return userCommented;
+    }
+
+    public void setUserCommented(boolean userCommented) {
+        this.userCommented = userCommented;
+    }
     
     //Sección comentarios
     private List<Valoration> valorationList;
@@ -133,7 +139,30 @@ public class GameInfoBean implements Serializable {
             video_url = gv.getUrl();
         }
 
-        //Total valoration
+        updateValoration();
+
+        valorationObj = new Valoration();
+        user = new User();
+        userCommented = false;
+        updateUserCommented();
+    }
+    
+    private void updateUserCommented(){
+        if (FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal() != null) {
+            List<User> listaUsuarios = userEJB.findAll();
+            for (User u : listaUsuarios) {
+                if (u.getUsername().equals(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().toString())) {
+                    user = u;
+                }
+            }
+            userCommented = userCommented(game.getValorationCollection(), user);
+        }
+    }
+    
+    private void updateValoration(){
+        valoration_count = 0;
+        valoration = 0;
+        //Valoration
         for (Valoration v : game.getValorationCollection()) {
             valoration = (int) (valoration + v.getScore());
             valoration_count++;
@@ -164,24 +193,23 @@ public class GameInfoBean implements Serializable {
 
     public void rate() throws ParseException {
 
-        List<User> listaUsuarios = userEJB.findAll();
-        for (User u : listaUsuarios) {
-            if (u.getUsername().equals(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().toString())) {
-                user = u;
-            }
-        }
-
+        //Date for valoration date
+        //Date date = Calendar.getInstance().getTime();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
         Date myDate = formatter.parse(dtf.format(localDate));
         java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
 
-        /*System.out.println("Date: " + sqlDate);
-         System.out.println("Game: " + this.game.getTitle());
-         System.out.println("Username: " + user.getUsername());
-         System.out.println("Score: " + score);
-         System.out.println("Comment: " + comment);*/
+        System.out.println("Date: " + sqlDate);
+        System.out.println("Game: " + this.game.getTitle());
+        System.out.println("Username: " + user.getUsername());
+        System.out.println("Score: " + score);
+        System.out.println("Comment: " + comment);
+        if (comment == null || comment.equals("")) {
+            comment = "-";
+        }
+
         this.valorationObj.setUsername(user);
         this.valorationObj.setGameTitle(this.game);
         this.valorationObj.setScore(score);
