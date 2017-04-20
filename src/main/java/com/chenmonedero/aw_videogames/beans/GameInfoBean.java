@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -93,6 +96,29 @@ public class GameInfoBean implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
+    
+    //Sección comentarios
+    private List<Valoration> valorationListFull;
+    private List<Valoration> valorationListFinal;
+
+    //G&S
+    public List<Valoration> getValorationListFull() {
+        return valorationListFull;
+    }
+
+    public void setValorationListFull(List<Valoration> valorationListFull) {
+        this.valorationListFull = valorationListFull;
+    }
+
+    public List<Valoration> getValorationListFinal() {
+        return valorationListFinal;
+    }
+
+    public void setValorationListFinal(List<Valoration> valorationListFinal) {
+        this.valorationListFinal = valorationListFinal;
+    }
+
+    
 
     @PostConstruct
     public void init() {
@@ -104,14 +130,20 @@ public class GameInfoBean implements Serializable {
             video_url = gv.getUrl();
         }
 
-        //Valoration
+        //Total valoration
         for (Valoration v : game.getValorationCollection()) {
             valoration = (int) (valoration + v.getScore());
-
             valoration_count++;
         }
         
-        if(valoration_count == 0){
+        //Valoration list
+        valorationListFull = (List<Valoration>) game.getValorationCollection();
+        valorationListFinal = new ArrayList<>();
+        for (Valoration v : valorationListFull){
+           
+        }
+
+        if (valoration_count == 0) {
             valoration_count = 1;
         }
         valoration = valoration / valoration_count;
@@ -121,37 +153,39 @@ public class GameInfoBean implements Serializable {
     }
 
     public void rate() throws ParseException {
-        
+
         List<User> listaUsuarios = userEJB.findAll();
-        for(User u : listaUsuarios){
-            if(u.getUsername().equals(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().toString())){
+        for (User u : listaUsuarios) {
+            if (u.getUsername().equals(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().toString())) {
                 user = u;
             }
         }
-        
-        //Date for valoration date
-        //Date date = Calendar.getInstance().getTime();
+
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String date = "2017-03-03";
-        Date myDate = formatter.parse(date);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        Date myDate = formatter.parse(dtf.format(localDate));
         java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
 
-        System.out.println("Date: " + sqlDate);
-        System.out.println("Game: " + this.game.getTitle());
-        System.out.println("Username: " + user.getUsername());
-        System.out.println("Score: " + score);
-        System.out.println("Comment: " + comment);
-
+        /*System.out.println("Date: " + sqlDate);
+         System.out.println("Game: " + this.game.getTitle());
+         System.out.println("Username: " + user.getUsername());
+         System.out.println("Score: " + score);
+         System.out.println("Comment: " + comment);*/
         this.valorationObj.setUsername(user);
         this.valorationObj.setGameTitle(this.game);
         this.valorationObj.setScore(score);
         this.valorationObj.setComment(comment);
         this.valorationObj.setValorationDate(sqlDate);
-        
+
         valorationEJB.create(valorationObj);
 
         //Mensaje de exito
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Valoración enviada"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gracias!", "Valoración enviada"));
+    }
+
+    public void getValorationAndComments() {
+
     }
 
     public void onrate(RateEvent rateEvent) {
