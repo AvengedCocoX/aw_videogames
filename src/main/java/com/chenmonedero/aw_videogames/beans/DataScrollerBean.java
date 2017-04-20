@@ -160,23 +160,28 @@ public class DataScrollerBean implements Serializable {
         sizeGamesList = gameListInitSize;
         gameList.clear();
         getGamesListWithPlatform(platform);
-        
+
     }
 
     public void searchGame(String title) {
-        if (!title.equals("") && title != null) {
-            i = 0;
-            gameList.clear();
-            gameListFull = gameEJB.getGameByPlatformAndTitle(platform, "%" + title + "%");
-            countTotal = gameListFull.size();
-            if (countTotal != 0) {
-                sizeGamesList = gameListInitSize;
+        try {
+            if (!title.equals("")) {
+                i = 0;
+                gameList.clear();
+                gameListFull = gameEJB.getGameByPlatformAndTitle(platform, "%" + title + "%");
+                countTotal = gameListFull.size();
+                if (countTotal != 0) {
+                    sizeGamesList = gameListInitSize;
+                } else {
+                    sizeGamesList = 0;
+                }
+                searched = true;
             } else {
-                sizeGamesList = 0;
+                changePlatform(platform);
             }
-            searched = true;
-        } else {
+        } catch (NullPointerException e) {
             changePlatform(platform);
+            //System.err.println(e);
         }
     }
 }
